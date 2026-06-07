@@ -112,22 +112,34 @@ mod tests {
     #[test]
     fn discriminators_match_vendored_idl_bytes() {
         // Cross-check derived discriminators against the exact bytes dumped from the IDLs
-        // (idls/CPI-META.md). No magic numbers: the names are the source of truth.
-        assert_eq!(
-            anchor_discriminator("global", "deposit_reserve_liquidity"),
-            [169, 201, 30, 126, 6, 205, 102, 68]
-        );
-        assert_eq!(
-            anchor_discriminator("global", "lending_account_deposit"),
-            [171, 94, 235, 103, 82, 64, 212, 140]
-        );
-        assert_eq!(
-            anchor_discriminator("global", "add_insurance_fund_stake"),
-            [251, 144, 115, 11, 222, 47, 62, 236]
-        );
-        assert_eq!(
-            anchor_discriminator("global", "add_liquidity2"),
-            [228, 162, 78, 28, 70, 219, 116, 115]
-        );
+        // (idls/CPI-META.md). No magic numbers: the instruction NAME is the source of truth,
+        // and this asserts our manual CPI will hit the right handler in every deployed program.
+        // Covers BOTH the deposit-side and withdraw-side call of every adapter.
+
+        // Kamino
+        assert_eq!(anchor_discriminator("global", "deposit_reserve_liquidity"), [169, 201, 30, 126, 6, 205, 102, 68]);
+        assert_eq!(anchor_discriminator("global", "redeem_reserve_collateral"), [234, 117, 181, 125, 185, 142, 220, 29]);
+        assert_eq!(anchor_discriminator("global", "refresh_reserve"), [2, 218, 138, 235, 79, 201, 25, 102]);
+
+        // MarginFi
+        assert_eq!(anchor_discriminator("global", "lending_account_deposit"), [171, 94, 235, 103, 82, 64, 212, 140]);
+        assert_eq!(anchor_discriminator("global", "lending_account_withdraw"), [36, 72, 74, 19, 210, 210, 192, 192]);
+        assert_eq!(anchor_discriminator("global", "marginfi_account_initialize"), [43, 78, 61, 255, 148, 52, 249, 154]);
+
+        // Drift Insurance Fund (two-phase)
+        assert_eq!(anchor_discriminator("global", "add_insurance_fund_stake"), [251, 144, 115, 11, 222, 47, 62, 236]);
+        assert_eq!(anchor_discriminator("global", "request_remove_insurance_fund_stake"), [142, 70, 204, 92, 73, 106, 180, 52]);
+        assert_eq!(anchor_discriminator("global", "remove_insurance_fund_stake"), [128, 166, 142, 9, 254, 187, 143, 174]);
+        assert_eq!(anchor_discriminator("global", "initialize_insurance_fund_stake"), [187, 179, 243, 70, 248, 90, 92, 147]);
+
+        // Jupiter JLP (versioned v2 — NOT add_liquidity/remove_liquidity)
+        assert_eq!(anchor_discriminator("global", "add_liquidity2"), [228, 162, 78, 28, 70, 219, 116, 115]);
+        assert_eq!(anchor_discriminator("global", "remove_liquidity2"), [230, 215, 82, 127, 241, 101, 227, 146]);
+
+        // Maple via Orca Whirlpool — both syrupUSDC and USDC are legacy SPL-Token, so the
+        // adapter uses `swap` (v1, 11 accounts); swap_v2 is cross-checked too in case Token-2022
+        // handling is ever needed.
+        assert_eq!(anchor_discriminator("global", "swap"), [248, 198, 158, 145, 225, 117, 135, 200]);
+        assert_eq!(anchor_discriminator("global", "swap_v2"), [43, 4, 237, 11, 26, 201, 30, 98]);
     }
 }

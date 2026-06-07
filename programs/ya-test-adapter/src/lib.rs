@@ -34,6 +34,9 @@ pub mod ya_test_adapter {
         let _status = WithdrawalStatus::Pending;
         let _ticket_space = WithdrawalTicket::SPACE;
 
+        // exercise the current_value-as-view helper (the Solana-native view mechanism)
+        ya_interface::report_value(position.shares);
+
         emit!(Deposited {
             position: position.key(),
             amount,

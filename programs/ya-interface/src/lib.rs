@@ -12,12 +12,14 @@ pub mod cpi;
 pub mod error;
 pub mod events;
 pub mod state;
+pub mod view;
 
 pub use constants::*;
 pub use cpi::{anchor_discriminator, CpiCall};
 pub use error::YaError;
 pub use events::*;
 pub use state::WithdrawalStatus;
+pub use view::{read_returned_value, report_value};
 
 /// Generate the standard `Position` and `WithdrawalTicket` Anchor account types **inside the
 /// calling adapter crate**. Because the macro expands in the adapter, each account is owned by
