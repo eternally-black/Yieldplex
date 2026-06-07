@@ -185,6 +185,25 @@ fn set_status(entry: &mut AdapterEntry, new: AdapterStatus) {
     });
 }
 
+/// IDL-free loader used by the dispatcher and every adapter instead of a typed
+/// `Account<AdapterEntry>` (a typed cross-crate account forces `ya-registry/idl-build`, which
+/// breaks the macro-generated `Position` IdlBuild). Verifies owner + discriminator + canonical
+/// PDA for `adapter_program`, then returns the decoded entry. Callers check `status`/`base_mint`.
+pub fn load_adapter_entry(info: &AccountInfo, adapter_program: &Pubkey) -> Result<AdapterEntry> {
+    require_keys_eq!(*info.owner, crate::ID, RegistryError::Unauthorized);
+    let entry: AdapterEntry = {
+        let data = info.try_borrow_data()?;
+        AdapterEntry::try_deserialize(&mut &data[..])?
+    };
+    let bump = [entry.bump];
+    let expected =
+        Pubkey::create_program_address(&[ADAPTER_SEED, adapter_program.as_ref(), &bump], &crate::ID)
+            .map_err(|_| error!(RegistryError::Unauthorized))?;
+    require_keys_eq!(*info.key, expected, RegistryError::Unauthorized);
+    require_keys_eq!(entry.program_id, *adapter_program, RegistryError::Unauthorized);
+    Ok(entry)
+}
+
 // ── accounts ────────────────────────────────────────────────
 #[derive(Accounts)]
 pub struct InitializeRegistry<'info> {

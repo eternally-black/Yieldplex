@@ -11,14 +11,12 @@ pub mod constants;
 pub mod cpi;
 pub mod error;
 pub mod events;
-pub mod state;
 pub mod view;
 
 pub use constants::*;
 pub use cpi::{anchor_discriminator, CpiCall};
 pub use error::YaError;
 pub use events::*;
-pub use state::WithdrawalStatus;
 pub use view::{read_returned_value, report_value};
 
 /// Generate the standard `Position` and `WithdrawalTicket` Anchor account types **inside the
@@ -33,16 +31,37 @@ pub use view::{read_returned_value, report_value};
 #[macro_export]
 macro_rules! declare_ya_accounts {
     () => {
+        /// Lifecycle of the single withdrawal ticket per position (SPEC §4.4). Generated locally
+        /// in each adapter (identical layout/discriminator everywhere) so adapter IDLs stay
+        /// self-contained (no cross-crate IdlBuild).
+        #[derive(
+            anchor_lang::AnchorSerialize,
+            anchor_lang::AnchorDeserialize,
+            Clone,
+            Copy,
+            PartialEq,
+            Eq,
+            Debug,
+            Default,
+        )]
+        pub enum WithdrawalStatus {
+            #[default]
+            None,
+            Pending,
+            Settled,
+            Cancelled,
+        }
+
         /// Per-(owner, base_mint) position record. PDA seeds `[b"position", owner, base_mint]`.
         #[account]
         #[derive(Default)]
         pub struct Position {
             /// End user who owns this position.
-            pub owner: anchor_lang::prelude::Pubkey,
+            pub owner: Pubkey,
             /// Base asset mint (USDC).
-            pub base_mint: anchor_lang::prelude::Pubkey,
+            pub base_mint: Pubkey,
             /// Adapter program that owns this position.
-            pub adapter: anchor_lang::prelude::Pubkey,
+            pub adapter: Pubkey,
             /// Protocol-native position units held (cTokens / shares / JLP / if_shares / syrup).
             pub shares: u64,
             /// Last computed redeemable base-asset value (cached by `current_value`).
@@ -66,7 +85,7 @@ macro_rules! declare_ya_accounts {
         #[derive(Default)]
         pub struct WithdrawalTicket {
             /// The position this ticket belongs to.
-            pub position: anchor_lang::prelude::Pubkey,
+            pub position: Pubkey,
             /// Position units being withdrawn.
             pub shares: u64,
             /// Minimum acceptable base-asset payout (slippage protection).
@@ -74,7 +93,7 @@ macro_rules! declare_ya_accounts {
             /// 0 (or <= now) means settle-now; otherwise the cooldown unlock time (unix seconds).
             pub unlock_ts: i64,
             /// Ticket lifecycle status.
-            pub status: $crate::state::WithdrawalStatus,
+            pub status: WithdrawalStatus,
             /// Unix seconds when the ticket was created.
             pub created_ts: i64,
             /// Canonical bump for this ticket PDA.

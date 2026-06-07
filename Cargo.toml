@@ -2,6 +2,8 @@
 members = [
     "crates/ya-interface",
     "programs/ya-registry",
+    "programs/ya-dispatcher",
+    "programs/ya-mock-adapter",
 ]
 resolver = "2"
 

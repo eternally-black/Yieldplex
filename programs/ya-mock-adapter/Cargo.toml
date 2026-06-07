@@ -1,0 +1,25 @@
+[package]
+name = "ya-mock-adapter"
+version = "0.1.0"
+edition = "2021"
+description = "Minimal reference adapter implementing the standard interface (no real protocol). Used to test the dispatcher route + conformance harness; also the skeleton real adapters follow."
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "ya_mock_adapter"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = { workspace = true, features = ["init-if-needed"] }
+ya-interface = { path = "../../crates/ya-interface" }
+ya-registry = { path = "../ya-registry", features = ["cpi"] }
+
+[lints.rust]
+unexpected_cfgs = { level = "allow" }

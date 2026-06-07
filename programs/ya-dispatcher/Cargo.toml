@@ -1,0 +1,33 @@
+[package]
+name = "ya-dispatcher"
+version = "0.1.0"
+edition = "2021"
+description = "Thin router for the Yield Adapter Standard. Router mode: never custodies funds; gates on the registry and forwards the standardized call to the adapter via manual CPI."
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "ya_dispatcher"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = { workspace = true }
+ya-interface = { path = "../../crates/ya-interface" }
+ya-registry = { path = "../ya-registry", features = ["cpi"] }
+
+[dev-dependencies]
+litesvm = "0.10.0"
+solana-message = "3.0.1"
+solana-transaction = "3.0.2"
+solana-signer = "3.0.0"
+solana-keypair = "3.0.1"
+ya-mock-adapter = { path = "../ya-mock-adapter", features = ["cpi"] }
+
+[lints.rust]
+unexpected_cfgs = { level = "allow" }
