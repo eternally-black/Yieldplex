@@ -7,8 +7,8 @@ package_manager = "npm"
 resolution = true
 skip-lint = false
 
-# Program IDs are added here as the registry / dispatcher / adapter programs are created (M1+).
 [programs.localnet]
+ya_registry = "3ehQoDePP3eULnSKxgHc6DvLAwEQNeVHvJYzWPXoQyUD"
 
 [provider]
 cluster = "localnet"

@@ -1,7 +1,7 @@
 [workspace]
 members = [
-    "programs/ya-interface",
-    "programs/ya-test-adapter",
+    "crates/ya-interface",
+    "programs/ya-registry",
 ]
 resolver = "2"
 

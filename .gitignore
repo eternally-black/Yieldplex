@@ -20,6 +20,7 @@ dist/
 *.tsbuildinfo
 
 # Keys
+keys/
 *.json.key
 deploy-keypair*.json
 id.json
