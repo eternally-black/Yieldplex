@@ -1,0 +1,19 @@
+[package]
+name = "ya-cpi-spike"
+version = "0.1.0"
+edition = "2021"
+description = "M0 spike: validate declare_program! compiles against all 5 vendored protocol IDLs"
+
+[lib]
+crate-type = ["lib"]
+name = "ya_cpi_spike"
+
+[features]
+default = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = { workspace = true }
+
+[lints.rust]
+unexpected_cfgs = { level = "allow" }

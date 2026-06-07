@@ -1,0 +1,25 @@
+{
+  "name": "yield-adapter-standard",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Reference implementation of a Solana Yield Adapter Standard (dispatcher + registry + 5 adapters + SDK + conformance suite).",
+  "license": "MIT",
+  "scripts": {
+    "verify-addresses": "node scripts/verify-addresses.mjs",
+    "inspect-idls": "node scripts/inspect-idls.mjs",
+    "test": "ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.spec.ts"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.11",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.0",
+    "chai": "^4.5.0",
+    "mocha": "^10.7.0",
+    "ts-mocha": "^10.0.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@anchor-lang/core": "^1.0.0",
+    "@solana/web3.js": "^1.95.3"
+  }
+}

@@ -1,0 +1,9 @@
+# Surfpool (surfnet) config. The mainnet RPC datasource is passed at launch from the
+# gitignored .env (scripts/surfpool-start.sh) so the Helius key is never committed.
+[surfnet]
+# JIT-fetch missing accounts/programs from the mainnet datasource on first touch.
+remote_rpc_url = "set-via-cli"   # overridden by `surfpool start -u $MAINNET_RPC_URL`
+
+[rpc]
+bind_host = "127.0.0.1"
+bind_port = 8899

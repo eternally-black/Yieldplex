@@ -1,0 +1,29 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Rust / Anchor
+target/
+/target
+**/*.rs.bk
+Cargo.lock.bak
+
+# Anchor / Surfpool
+.anchor/
+.surfpool/
+test-ledger/
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Keys
+*.json.key
+deploy-keypair*.json
+id.json
+
+# OS / editor
+.DS_Store
+*.log
