@@ -10,4 +10,4 @@ export PATH="$HOME/.cargo/bin:$HOME/.local/share/solana/install/active_release/b
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" >/dev/null 2>&1
 export YAS_DIR="/mnt/c/Users/Valera/Desktop/Earn Bounties/Solana Dex Adapters/yield-adapter-standard"
-mkdir -p "$TMPDIR" "$CARGO_TARGET_DIR"
+mkdir -p "$TMPDIR"

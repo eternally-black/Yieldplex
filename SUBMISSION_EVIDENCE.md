@@ -5,7 +5,7 @@
 >
 > **Status legend:** ✅ done & reproducible now · 🚧 in progress (milestone) · placeholders `<…>` are filled from real runs as milestones land. No ✅ is asserted before it is produced.
 
-**Build progress (as of commit `6a8fae2`):** M0 toolchain/verify · M1 `ya-interface` · M2 `ya-registry` (6 tests) · M3 `ya-dispatcher` + mock + e2e (3 tests) — **done**. M4 conformance harness · M5 five adapters + fork tests · M6 SDK · M7 dispatcher fork-e2e · M8 devnet · M9 docs/skill/CI — **in progress**.
+**Build progress:** M0 toolchain/verify · M1 `ya-interface` · M2 `ya-registry` (6 tests) · M3 `ya-dispatcher` + mock + e2e (3 tests) · M4 conformance harness + **surfnet mainnet-fork pipeline** (parametrized `runConformance`, mock 7/7 green on surfnet, TS client `@anchor-lang/core` 1.0.2, `tsc` clean) — **done**. M5 five adapters + fork tests · M6 SDK · M7 dispatcher fork-e2e · M8 devnet · M9 docs/skill/CI — **in progress**.
 
 ---
 
@@ -105,7 +105,7 @@ We do **not** label the stand-in run as a live-protocol pass. The distinction is
 - **Maple:** syrupUSDC has no native synchronous Solana deposit (it is a Chainlink CCIP cross-chain token; the lending lives on Ethereum). The adapter acquires/exits syrupUSDC via a single direct Orca Whirlpool pool — the correct synchronous Solana primitive. Entry/exit is therefore liquidity-constrained (real slippage, enforced via `min_amount_out`).
 - **Fork-only fixtures:** where a cloned oracle/reserve is stale on the fork, the test patches it to a fresh value; every such patch is listed in `tests/fork/FIXTURES.md`. No production code path depends on these.
 
-**Toolchain note:** built on Anchor `1.0.2` / Solana `3.1.10` via Surfpool. The pinned `0.31.1 / 2.2.20` stack is **explicitly waived by the sponsor** — bounty Q&A: *"Can we ignore the tech stack and use the latest versions of anchor-cli and Solana?"* → Sponsor (Serhii Kovalchuk): *"yes"* (`<BOUNTY_URL>`). Using the latest toolchain is therefore fully conforming, not a deviation.
+**Toolchain note:** built on Anchor `1.0.2` / Solana `3.1.10` via Surfpool. The pinned `0.31.1 / 2.2.20` stack is **explicitly waived by the sponsor** — bounty Q&A: *"Can we ignore the tech stack and use the latest versions of anchor-cli and Solana?"* → Sponsor (Serhii Kovalchuk): *"yes"* (bounty: https://superteam.fun/earn/listing/develop-solana-yield-adapter-standard). Using the latest toolchain is therefore fully conforming, not a deviation.
 
 ---
 
