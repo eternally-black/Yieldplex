@@ -1,6 +1,7 @@
 [workspace]
 members = [
-    "programs/ya-cpi-spike",
+    "programs/ya-interface",
+    "programs/ya-test-adapter",
 ]
 resolver = "2"
 

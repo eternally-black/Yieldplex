@@ -1531,10 +1531,19 @@ dependencies = [
 ]
 
 [[package]]
-name = "ya-cpi-spike"
+name = "ya-interface"
 version = "0.1.0"
 dependencies = [
  "anchor-lang",
+ "sha2",
+]
+
+[[package]]
+name = "ya-test-adapter"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
+ "ya-interface",
 ]
 
 [[package]]

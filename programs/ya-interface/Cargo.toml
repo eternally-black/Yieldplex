@@ -1,0 +1,19 @@
+[package]
+name = "ya-interface"
+version = "0.1.0"
+edition = "2021"
+description = "The Yield Adapter Standard — shared interface crate (no entrypoint): instruction names/discriminators, account prefix, Position/WithdrawalTicket, errors, events, and the uniform manual-CPI helper."
+
+[lib]
+name = "ya_interface"
+
+[features]
+default = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = { workspace = true }
+sha2 = { version = "0.10", default-features = false }
+
+[lints.rust]
+unexpected_cfgs = { level = "allow" }
