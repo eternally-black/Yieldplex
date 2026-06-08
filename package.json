@@ -12,6 +12,8 @@
     "test:fork": "bash scripts/fork-test.sh",
     "test:rust": "bash scripts/test-rust.sh",
     "probe:drift-if": "node scripts/probe-drift-if.mjs",
+    "deploy:devnet": "bash scripts/deploy-devnet.sh",
+    "verify:devnet": "ANCHOR_PROVIDER_URL=https://api.devnet.solana.com node scripts/verify-devnet.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "devDependencies": {

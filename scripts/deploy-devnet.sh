@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# M8 — deploy registry + dispatcher + the 5 reference adapters to devnet, then initialize the registry
+# and propose+approve all five. Protocols are absent on devnet, so execution (deposit/withdraw) is NOT
+# run here — it is validated on mainnet-fork (tests/fork). This proves the governance/registry surface
+# is live and the program ids match declare_id!. Idempotent: skips programs already deployed.
+#
+#   bash scripts/deploy-devnet.sh
+#
+# Needs ~16 SOL on the wallet (deployed with --max-len = exact .so size, no upgrade headroom).
+set +e
+HERE="$(cd "$(dirname "$0")" && pwd)"
+REPO="$(dirname "$HERE")"
+. "$HERE/wsl-env.sh"
+cd "$REPO" || exit 1
+
+WALLET="$HOME/.config/solana/id.json"
+URL="https://api.devnet.solana.com"
+# registry + dispatcher + the 5 real adapters (mock/standin are test-only, not deployed to devnet).
+PROGRAMS=(ya_registry ya_dispatcher ya_adapter_kamino ya_adapter_marginfi ya_adapter_jupiter_jlp ya_adapter_maple ya_adapter_drift_if)
+
+echo "wallet : $(solana address -k "$WALLET")"
+echo "cluster: $URL"
+BAL="$(solana balance -k "$WALLET" --url "$URL" | awk '{print $1}')"
+echo "balance: ${BAL} SOL"
+awk -v b="$BAL" 'BEGIN{ if (b+0 < 15) { print "WARNING: balance < 15 SOL — deploy may run out mid-way (each adapter ~2.6 SOL)."; } }'
+
+for name in "${PROGRAMS[@]}"; do
+  so="target/deploy/${name}.so"
+  kp="keys/${name}-keypair.json"
+  [ -f "$so" ] || { echo "MISSING $so — run scripts/build.sh first"; exit 1; }
+  [ -f "$kp" ] || { echo "MISSING $kp"; exit 1; }
+  pid="$(solana address -k "$kp")"
+  if solana program show "$pid" --url "$URL" >/dev/null 2>&1; then
+    echo "  skip $name ($pid) — already deployed"
+    continue
+  fi
+  len="$(stat -c%s "$so")"
+  echo "  deploy $name -> $pid (max-len $len) ..."
+  solana program deploy "$so" \
+    --program-id "$kp" \
+    --keypair "$WALLET" \
+    --url "$URL" \
+    --max-len "$len" \
+    --commitment confirmed \
+    || { echo "  DEPLOY FAILED ($name). Re-run to resume (buffers are recoverable)."; exit 1; }
+done
+
+echo "=== initialize registry + propose/approve the 5 adapters ==="
+ANCHOR_PROVIDER_URL="$URL" ANCHOR_WALLET="$WALLET" node "$HERE/setup-registry-devnet.mjs" || exit 1
+
+echo "=== verify ==="
+ANCHOR_PROVIDER_URL="$URL" node "$HERE/verify-devnet.mjs"
