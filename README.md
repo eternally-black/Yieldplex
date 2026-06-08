@@ -28,6 +28,13 @@ the protocol's **own redemption/NAV math to 0 lamports** — not a "value ≈ de
 **Fork totals: 59/59 conformance + 5/5 SDK e2e.** Full results: [tests/fork/RESULTS.md](tests/fork/RESULTS.md) ·
 real run log: [tests/fork/fork-run.log](tests/fork/fork-run.log) · evidence map: [SUBMISSION_EVIDENCE.md](SUBMISSION_EVIDENCE.md).
 
+## Documentation
+
+- [docs/SPEC.md](docs/SPEC.md) — the standard: interface, 9-account prefix, `Position` / `WithdrawalTicket`, errors, events.
+- [docs/BUILD_YOUR_OWN_ADAPTER.md](docs/BUILD_YOUR_OWN_ADAPTER.md) — build a conforming adapter, from an empty folder to green conformance.
+- [skills/build-yield-adapter/SKILL.md](skills/build-yield-adapter/SKILL.md) — an agent skill: point a coding agent at it and it scaffolds and ships a conforming adapter in one pass.
+- [docs/adapters/](docs/adapters) — per-adapter design notes (accounts, value math, verified addresses).
+
 ## Architecture
 
 ```
@@ -111,7 +118,8 @@ programs/ya-dispatcher  non-custodial router (gates on the registry, one CPI int
 programs/ya-adapter-*   the five reference adapters (+ ya-mock-adapter, ya-cooldown-standin)
 ts/sdk                  TypeScript SDK: YieldAdapterClient + the single decoder + account-builders
 tests/                  conformance suite + per-adapter mainnet-fork specs + SDK e2e
-docs/adapters           per-adapter design notes (accounts + value math + verified addresses)
+docs/                   SPEC.md (the standard) + BUILD_YOUR_OWN_ADAPTER.md (guide) + adapters/ (per-adapter notes)
+skills/                 build-yield-adapter — an agent skill for scaffolding a conforming adapter
 ```
 
 ## CI
