@@ -1,12 +1,12 @@
 # Solana Yield Adapter Standard
 
-[![ci](https://github.com/eternally-black/Solana-top-yield-adapter-standard/actions/workflows/ci.yml/badge.svg)](https://github.com/eternally-black/Solana-top-yield-adapter-standard/actions/workflows/ci.yml)
+[![ci](https://github.com/eternally-black/Yieldplex/actions/workflows/ci.yml/badge.svg)](https://github.com/eternally-black/Yieldplex/actions/workflows/ci.yml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## Quickstart
 
 ```bash
-git clone https://github.com/eternally-black/Solana-top-yield-adapter-standard && cd Solana-top-yield-adapter-standard && MAINNET_RPC_URL=<your-rpc> npm run check   # -> 59 passing on mainnet-fork
+git clone https://github.com/eternally-black/Yieldplex && cd Yieldplex && MAINNET_RPC_URL=<your-rpc> npm run check   # -> 59 passing on mainnet-fork
 ```
 
 Toolchain: anchor 1.0.2 / solana 3.1.10 / surfpool 1.3.1.
