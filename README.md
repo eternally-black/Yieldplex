@@ -18,7 +18,7 @@ bash scripts/fork-test.sh tests/sdk/e2e.spec.ts            # SDK + dispatcher e2
 npx ts-mocha -p ./tsconfig.json tests/sdk/decode.spec.ts   # offline decoder, 4 passing (no RPC)
 ```
 
-A uniform on-chain standard for integrating any Solana yield source behind one interface: a
+A uniform on-chain standard for integrating Solana yield sources behind one interface: a
 **registry-gated dispatcher** routes a single standardized flow — `deposit → current_value →
 withdraw` — into pluggable **adapters**, each wrapping one protocol. Adding a protocol touches **zero
 lines** of the dispatcher or registry.

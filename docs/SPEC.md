@@ -1,6 +1,6 @@
 # The Yield Adapter Standard
 
-One calling convention for depositing into, withdrawing from, and pricing any yield source on Solana. A non-custodial dispatcher routes three operations (`deposit`, `withdraw`, `current_value`) to small adapter programs, each of which translates the standard call into one venue's CPI. A governance-gated registry controls which adapters are live. A new venue is a new adapter plus a registry entry; the dispatcher and registry do not change.
+One calling convention for depositing into, withdrawing from, and pricing yield sources on Solana. A non-custodial dispatcher routes three operations (`deposit`, `withdraw`, `current_value`) to small adapter programs, each of which translates the standard call into one venue's CPI. A governance-gated registry controls which adapters are live. A new venue is a new adapter plus a registry entry; the dispatcher and registry do not change.
 
 ## Reference implementation
 
