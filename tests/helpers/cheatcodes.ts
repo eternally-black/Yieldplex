@@ -20,10 +20,11 @@ export async function cheat(method: string, params: any[]): Promise<any> {
 
 /** Give `owner` a USDC SPL token account with `amount` base units (surfnet creates the ATA). */
 export async function fundUsdc(owner: PublicKey, amount: bigint, mint = USDC): Promise<void> {
+  // surfnet_setTokenAccount expects `amount` as a JSON u64 (number), not a string.
   await cheat("surfnet_setTokenAccount", [
     owner.toBase58(),
     mint,
-    { amount: amount.toString(), delegate: null, state: "initialized" },
+    { amount: Number(amount), delegate: null, state: "initialized" },
     TOKEN_PROGRAM,
   ]);
 }

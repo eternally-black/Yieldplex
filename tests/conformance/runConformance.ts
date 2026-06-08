@@ -27,6 +27,9 @@ export interface ConformanceConfig {
   preInstructions?: () => Promise<TransactionInstruction[]>;
   /** Create the Position (and protocol sub-accounts). Must be idempotent. */
   initPosition: () => Promise<void>;
+  /** Real prefix token accounts for token-moving adapters (vault PDA / funded owner ATA). */
+  vaultTokenAccount?: () => PublicKey;
+  ownerTokenAccount?: () => PublicKey;
 }
 
 const BN0 = new anchor.BN(0);
@@ -36,7 +39,11 @@ const absDiff = (a: anchor.BN, b: anchor.BN) => (a.gt(b) ? a.sub(b) : b.sub(a));
 export function runConformance(get: () => ConformanceConfig): void {
   const owner = payer.publicKey;
   const acc = (cfg: ConformanceConfig, baseMintOverride?: PublicKey) =>
-    routeAccounts(cfg.adapter.programId, owner, cfg.baseMint, baseMintOverride);
+    routeAccounts(cfg.adapter.programId, owner, cfg.baseMint, {
+      baseMintOverride,
+      vaultTokenAccount: cfg.vaultTokenAccount?.(),
+      ownerTokenAccount: cfg.ownerTokenAccount?.(),
+    });
   const pre = async (cfg: ConformanceConfig) => (cfg.preInstructions ? await cfg.preInstructions() : []);
 
   it("initialize_position is idempotent", async () => {

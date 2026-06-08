@@ -29,6 +29,14 @@ export const mock = new anchor.Program(idl("ya_mock_adapter"), provider);
 
 export const SYSTEM_PROGRAM = anchor.web3.SystemProgram.programId;
 export const TOKEN_PROGRAM = new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
+export const ASSOCIATED_TOKEN_PROGRAM = new PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
+
+/** Canonical associated token account for (owner, mint) on the SPL Token program. */
+export const ata = (mint: PublicKey, owner: PublicKey) =>
+  PublicKey.findProgramAddressSync(
+    [owner.toBuffer(), TOKEN_PROGRAM.toBuffer(), mint.toBuffer()],
+    ASSOCIATED_TOKEN_PROGRAM,
+  )[0];
 
 const S = {
   POSITION: Buffer.from("position"),
@@ -75,16 +83,30 @@ export async function ensureActiveAdapter(adapterProgram: PublicKey, baseMint: P
   }
 }
 
+export interface RouteAccountOverrides {
+  /** Force a wrong base_mint (base-mint-mismatch gating test). */
+  baseMintOverride?: PublicKey;
+  /** Real vault token account (PDA) for token-moving adapters; defaults to a throwaway key. */
+  vaultTokenAccount?: PublicKey;
+  /** Real owner token account (funded ATA) for token-moving adapters; defaults to a throwaway key. */
+  ownerTokenAccount?: PublicKey;
+}
+
 /** The standard 9-account prefix for a dispatcher route into `adapter`, for `owner`/`baseMint`. */
-export function routeAccounts(adapter: PublicKey, owner: PublicKey, baseMint: PublicKey, baseMintOverride?: PublicKey) {
+export function routeAccounts(
+  adapter: PublicKey,
+  owner: PublicKey,
+  baseMint: PublicKey,
+  opts: RouteAccountOverrides = {},
+) {
   const position = positionPda(adapter, owner, baseMint);
   return {
     position,
     vaultAuthority: vaultAuthorityPda(adapter, position),
-    baseMint: baseMintOverride ?? baseMint,
-    vaultTokenAccount: Keypair.generate().publicKey,
+    baseMint: opts.baseMintOverride ?? baseMint,
+    vaultTokenAccount: opts.vaultTokenAccount ?? Keypair.generate().publicKey,
     owner,
-    ownerTokenAccount: Keypair.generate().publicKey,
+    ownerTokenAccount: opts.ownerTokenAccount ?? Keypair.generate().publicKey,
     registryEntry: entryPda(adapter),
     tokenProgram: TOKEN_PROGRAM,
     systemProgram: SYSTEM_PROGRAM,

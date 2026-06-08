@@ -4,6 +4,7 @@ members = [
     "programs/ya-registry",
     "programs/ya-dispatcher",
     "programs/ya-mock-adapter",
+    "programs/ya-adapter-kamino",
 ]
 resolver = "2"
 
