@@ -52,6 +52,14 @@ async function main() {
   const adapterRecords = [];
   for (const a of ADAPTERS) {
     const entry = entryPda(a.programId);
+    // Only register adapters whose program is actually deployed + executable (honest partial deploys).
+    const progInfo = await connection.getAccountInfo(new PublicKey(a.programId));
+    const deployed = !!progInfo && progInfo.executable;
+    if (!deployed) {
+      console.log(`  skip ${a.name} — program not deployed yet (${a.programId})`);
+      adapterRecords.push({ name: a.name, programId: a.programId, entry: entry.toBase58(), deployed: false, active: false });
+      continue;
+    }
     if (!(await connection.getAccountInfo(entry))) {
       await registry.methods
         .proposeAdapter(new PublicKey(a.programId), USDC, a.name, 1, 0, a.hint)
@@ -65,7 +73,7 @@ async function main() {
     } else {
       console.log(`  ${a.name} entry already exists (${entry.toBase58()})`);
     }
-    adapterRecords.push({ name: a.name, programId: a.programId, entry: entry.toBase58() });
+    adapterRecords.push({ name: a.name, programId: a.programId, entry: entry.toBase58(), deployed: true, active: true });
   }
 
   const out = {

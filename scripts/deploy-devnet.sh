@@ -12,14 +12,36 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(dirname "$HERE")"
 . "$HERE/wsl-env.sh"
 cd "$REPO" || exit 1
+sed -i 's/\r$//' .env 2>/dev/null
+set -a; [ -f ./.env ] && . ./.env; set +a
 
 WALLET="$HOME/.config/solana/id.json"
-URL="https://api.devnet.solana.com"
+# Deploy via the Helius devnet RPC (derived from MAINNET_RPC_URL by mainnet->devnet). The public
+# devnet RPC (api.devnet.solana.com) drops the many txs a program deploy needs. Falls back to the
+# public RPC only if MAINNET_RPC_URL is unset.
+if [ -n "$MAINNET_RPC_URL" ]; then
+  URL="$(printf '%s' "$MAINNET_RPC_URL" | sed 's/mainnet/devnet/g')"
+  echo "deploy RPC: Helius devnet (from MAINNET_RPC_URL)"
+else
+  URL="https://api.devnet.solana.com"
+  echo "deploy RPC: public devnet (MAINNET_RPC_URL unset)"
+fi
 # registry + dispatcher + the 5 real adapters (mock/standin are test-only, not deployed to devnet).
-PROGRAMS=(ya_registry ya_dispatcher ya_adapter_kamino ya_adapter_marginfi ya_adapter_jupiter_jlp ya_adapter_maple ya_adapter_drift_if)
+# Override by passing an explicit program list (e.g. a subset that fits the current balance).
+if [ "$#" -gt 0 ]; then
+  PROGRAMS=("$@")
+else
+  PROGRAMS=(ya_registry ya_dispatcher ya_adapter_kamino ya_adapter_marginfi ya_adapter_jupiter_jlp ya_adapter_maple ya_adapter_drift_if)
+fi
 
 echo "wallet : $(solana address -k "$WALLET")"
-echo "cluster: $URL"
+echo "cluster: $(printf '%s' "$URL" | sed -E 's#(https?://[^/?]+).*#\1#')"
+# Preflight: the deploy RPC must answer before we spend any SOL.
+if ! solana cluster-version --url "$URL" >/dev/null 2>&1; then
+  echo "ERROR: deploy RPC unreachable / key not valid for devnet ($URL). Aborting before spending SOL."
+  exit 1
+fi
+echo "rpc    : reachable (cluster-version ok)"
 BAL="$(solana balance -k "$WALLET" --url "$URL" | awk '{print $1}')"
 echo "balance: ${BAL} SOL"
 awk -v b="$BAL" 'BEGIN{ if (b+0 < 15) { print "WARNING: balance < 15 SOL — deploy may run out mid-way (each adapter ~2.6 SOL)."; } }'
