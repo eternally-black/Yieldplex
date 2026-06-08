@@ -44,5 +44,5 @@ export async function nowTs(connection: Connection): Promise<number> {
 /** Advance surfnet time by `seconds` (for cooldown/lifecycle tests). */
 export async function warpForwardSeconds(connection: Connection, seconds: number): Promise<void> {
   const target = (await nowTs(connection)) + seconds;
-  await cheat("surfnet_timeTravel", [{ absoluteUnixTime: target }]);
+  await cheat("surfnet_timeTravel", [{ absoluteTimestamp: target }]);
 }

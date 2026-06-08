@@ -12,6 +12,7 @@ ya_registry = "3ehQoDePP3eULnSKxgHc6DvLAwEQNeVHvJYzWPXoQyUD"
 ya_dispatcher = "2aY1hBVBJJmX8uSgB4aqhuS2xeDaGCc3d55KE2Mbvvgs"
 ya_mock_adapter = "kQJWqDnHj7mSugETc3EmFrgdwGRoEVSRuVDGgM9ZXjK"
 ya_adapter_kamino = "BwyrWhHa86dCyRghZn9EDK2ZxfhpBH4tr5NVoBJ3hTs5"
+ya_adapter_marginfi = "36CgQYZFxZQHzyMrn3NJRXR9jsVoYH44WitqGohoBGoi"
 
 [provider]
 cluster = "localnet"

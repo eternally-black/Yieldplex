@@ -4235,6 +4235,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "ya-adapter-marginfi"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
+ "anchor-spl",
+ "ya-interface",
+ "ya-registry",
+]
+
+[[package]]
 name = "ya-dispatcher"
 version = "0.1.0"
 dependencies = [

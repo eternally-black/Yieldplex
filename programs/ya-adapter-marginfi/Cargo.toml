@@ -1,0 +1,26 @@
+[package]
+name = "ya-adapter-marginfi"
+version = "0.1.0"
+edition = "2021"
+description = "MarginFi v2 USDC reference adapter: marginfi_account_initialize / lending_account_deposit / lending_account_withdraw via the uniform manual CPI; value = asset_shares x Bank.asset_share_value (I80F48)."
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "ya_adapter_marginfi"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
+
+[dependencies]
+anchor-lang = { workspace = true, features = ["init-if-needed"] }
+anchor-spl = { workspace = true }
+ya-interface = { path = "../../crates/ya-interface" }
+ya-registry = { path = "../ya-registry", features = ["cpi"] }
+
+[lints.rust]
+unexpected_cfgs = { level = "allow" }
