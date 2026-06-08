@@ -12,7 +12,7 @@
 ## 0. 60-second reviewer quickstart (the one thing to run)
 
 ```bash
-git clone https://github.com/eternally-black/Solana-top-yield-adapter-standard && cd Solana-top-yield-adapter-standard
+git clone https://github.com/eternally-black/claude-lookup && cd claude-lookup
 yarn install
 export MAINNET_RPC_URL=<your-mainnet-rpc>     # required: the fork pulls live protocol state
 anchor test                                    # Surfpool mainnet-fork; expect 49 passing (5 adapters + mock)  ✅ M5
@@ -37,7 +37,7 @@ node scripts/verify-addresses.mjs              # re-verify all §8 mainnet addre
 
 | Requirement | Where it lives | Verify it yourself | Status |
 |---|---|---|---|
-| Public GitHub repo with all source | `https://github.com/eternally-black/Solana-top-yield-adapter-standard` | `git remote -v` | ✅ (private during build; public at submission) |
+| Public GitHub repo with all source | `https://github.com/eternally-black/claude-lookup` | `git remote -v` | ✅ (private during build; public at submission) |
 | Core dispatcher (router: `deposit`, `withdraw`, `current_value`) | `programs/ya-dispatcher/src/lib.rs` | `bash scripts/test-rust.sh ya-dispatcher` | ✅ M3 |
 | Five reference adapters | `programs/ya-adapter-{kamino,marginfi,jupiter-jlp,maple,drift-if}/` | `anchor build` (all members) | ✅ M5 (all 5 built; 4 live fork + Drift §F) |
 | Governance-gated on-chain registry | `programs/ya-registry/src/lib.rs` (`propose` → governance `approve` → `pause`/`deprecate`) | `bash scripts/test-rust.sh ya-registry` | ✅ M2 |
