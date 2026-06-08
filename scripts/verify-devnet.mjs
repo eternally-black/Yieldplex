@@ -24,7 +24,7 @@ async function main() {
   const fail = (m) => { console.error(`  x ${m}`); failures++; };
   const ok = (m) => console.log(`  + ${m}`);
 
-  console.log(`cluster: ${URL}`);
+  console.log(`cluster: ${URL.replace(/\?.*$/, "")}`); // strip query (e.g. ?api-key=...) from logs
   console.log("=== program accounts executable ===");
   for (const [name, id] of Object.entries(PROGRAMS)) {
     const info = await connection.getAccountInfo(new PublicKey(id));

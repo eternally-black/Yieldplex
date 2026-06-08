@@ -90,6 +90,18 @@ await client.withdraw(pos!.shares);
 | `ya_cooldown_standin` | `7aTuXKiyKwZ1MVrPfMgoAPoh8VKDSBLPAfEBvzkhJCYR` |
 | `ya_mock_adapter` | `kQJWqDnHj7mSugETc3EmFrgdwGRoEVSRuVDGgM9ZXjK` |
 
+## Devnet deployment
+
+Registry + dispatcher + all 5 adapters are **live on devnet** (program ids above), with the registry
+initialized and all five adapters proposed + approved (Active). Full map: [deploy/devnet.json](deploy/devnet.json).
+
+- registry singleton PDA: `AjR3qM8qkWNYV8vTmyMveo8BhVmTE6dDZqfA3oyQirYq`
+- verify it yourself: `npm run verify:devnet` (asserts 7 programs executable + ≥5 Active adapters)
+
+> Protocols (Kamino/MarginFi/Jupiter/Orca/Drift) are **absent on devnet**, so `deposit`/`withdraw`
+> *execution* is validated on mainnet-fork (above), not devnet. The devnet deployment proves the
+> program ids are live and the registry/governance surface works on a public cluster.
+
 ## Repository layout
 
 ```

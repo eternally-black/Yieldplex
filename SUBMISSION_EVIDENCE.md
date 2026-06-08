@@ -5,7 +5,7 @@
 >
 > **Status legend:** ✅ done & reproducible now · 🚧 in progress (milestone) · placeholders `<…>` are filled from real runs as milestones land. No ✅ is asserted before it is produced.
 
-**Build progress:** M0 toolchain/verify · M1 `ya-interface` · M2 `ya-registry` (6 tests) · M3 `ya-dispatcher` + mock + e2e (3 tests) · M4 conformance harness + **surfnet mainnet-fork pipeline** (parametrized `runConformance`, mock green on surfnet, TS client `@anchor-lang/core` 1.0.2, `tsc` clean) — **done**. M5 **five adapters + mainnet-fork tests — done** (4 adapters live with `current_value` diff=0 + Drift §F two-phase on a stand-in). M6 **TypeScript SDK (`ts/sdk`) — done**: `YieldAdapterClient` + the ONE `Position`/`WithdrawalTicket` decoder (validated against all 5 adapters via a conformance gate) + per-adapter account-builders + re-exported `runConformance`; `tsc` clean. M7 **dispatcher fork-e2e — done**: every live adapter driven through the SDK + the real dispatcher on fork (`tests/sdk/e2e.spec.ts`). **Fork totals: 59/59 conformance + 5/5 SDK e2e.** M8 devnet · M9 docs/skill/CI — **in progress**.
+**Build progress:** M0 toolchain/verify · M1 `ya-interface` · M2 `ya-registry` (6 tests) · M3 `ya-dispatcher` + mock + e2e (3 tests) · M4 conformance harness + **surfnet mainnet-fork pipeline** (parametrized `runConformance`, mock green on surfnet, TS client `@anchor-lang/core` 1.0.2, `tsc` clean) — **done**. M5 **five adapters + mainnet-fork tests — done** (4 adapters live with `current_value` diff=0 + Drift §F two-phase on a stand-in). M6 **TypeScript SDK (`ts/sdk`) — done**: `YieldAdapterClient` + the ONE `Position`/`WithdrawalTicket` decoder (validated against all 5 adapters via a conformance gate) + per-adapter account-builders + re-exported `runConformance`; `tsc` clean. M7 **dispatcher fork-e2e — done**: every live adapter driven through the SDK + the real dispatcher on fork (`tests/sdk/e2e.spec.ts`). **Fork totals: 59/59 conformance + 5/5 SDK e2e.** M8 **devnet — done**: registry + dispatcher + all 5 adapters deployed to devnet, registry initialized, 5 adapters Active (`deploy/devnet.json`; `npm run verify:devnet`). M9 docs/skill/CI — **in progress**.
 
 ---
 
@@ -45,7 +45,7 @@ node scripts/verify-addresses.mjs              # re-verify all §8 mainnet addre
 | Governance-gated on-chain registry | `programs/ya-registry/src/lib.rs` (`propose` → governance `approve` → `pause`/`deprecate`) | `bash scripts/test-rust.sh ya-registry` | ✅ M2 |
 | Mainnet-fork tests, all five adapters | `tests/adapters/*.spec.ts` + conformance suite | `bash scripts/fork-test.sh` (see §0) | ✅ M5 — 59/59 green (4/5 live-protocol; Drift = §4) |
 | TypeScript SDK (client + single decoder) | `ts/sdk/` (`YieldAdapterClient`, `decodePosition`, account-builders) | `bash scripts/fork-test.sh tests/sdk/e2e.spec.ts` | ✅ M6/M7 — 5/5 e2e through the dispatcher |
-| Registry deployed to devnet | `deploy/devnet.json` + `README.md` addresses | `yarn verify:devnet` | 🚧 M8 |
+| Registry deployed to devnet | `deploy/devnet.json` + `README.md` addresses | `npm run verify:devnet` | ✅ M8 — 7 programs live + executable; 5 adapters Active |
 | Adapter standard spec (markdown) | [`docs/SPEC.md`](docs/SPEC.md) | open it | 🚧 M9 |
 | "Build your own adapter" guide | [`docs/BUILD_YOUR_OWN_ADAPTER.md`](docs/BUILD_YOUR_OWN_ADAPTER.md) | open it | 🚧 M9 |
 | (bonus) Agent-native skill | [`skills/build-yield-adapter/SKILL.md`](skills/build-yield-adapter/SKILL.md) | drop into any SKILL.md-compatible agent | 🚧 M9 |
@@ -130,6 +130,6 @@ npx ts-mocha -p ./tsconfig.json tests/sdk/decode.spec.ts  # offline single-decod
 yarn probe:drift-if                            # Drift IF live-rejection + source citation (the §4 evidence)
 bash scripts/test-rust.sh ya-adapter-kamino    # per-adapter value-math unit test (each crate)
 
-# arriving M8–M9:
-yarn verify:devnet                             # devnet registry: programs executable + N active adapters
+# devnet (M8, now):
+npm run verify:devnet                          # devnet: 7 programs executable + 5 Active adapters (deploy/devnet.json)
 ```

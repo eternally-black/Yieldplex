@@ -1,0 +1,57 @@
+{
+  "cluster": "devnet",
+  "rpc": "https://api.devnet.solana.com",
+  "deployedAt": "2026-06-08T18:18:45.897Z",
+  "wallet": "FSUEW3LeovDwuKPJC8GatVhZjv18RhCbMKtoNgK3egZY",
+  "governance": "FSUEW3LeovDwuKPJC8GatVhZjv18RhCbMKtoNgK3egZY",
+  "guardian": "FSUEW3LeovDwuKPJC8GatVhZjv18RhCbMKtoNgK3egZY",
+  "baseMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+  "programs": {
+    "ya_registry": "3ehQoDePP3eULnSKxgHc6DvLAwEQNeVHvJYzWPXoQyUD",
+    "ya_dispatcher": "2aY1hBVBJJmX8uSgB4aqhuS2xeDaGCc3d55KE2Mbvvgs",
+    "kamino": "BwyrWhHa86dCyRghZn9EDK2ZxfhpBH4tr5NVoBJ3hTs5",
+    "marginfi": "36CgQYZFxZQHzyMrn3NJRXR9jsVoYH44WitqGohoBGoi",
+    "jupiter-jlp": "9fqh4833yoSJoPzpsucHY2SbUafVfHcC48RLQhTTahsB",
+    "maple": "Ck9mwpX9kAjycbtN7jhD3s9xdHzUS2dwuV43g3BuBnD",
+    "drift-if": "8MYJzh7Fm1q6QcrXNZNvCetoLkv1tfxjBDbrZXTFVjLs"
+  },
+  "registry": "AjR3qM8qkWNYV8vTmyMveo8BhVmTE6dDZqfA3oyQirYq",
+  "adapters": [
+    {
+      "name": "kamino",
+      "programId": "BwyrWhHa86dCyRghZn9EDK2ZxfhpBH4tr5NVoBJ3hTs5",
+      "entry": "5HYnM5xojm8kpy7H8LZgrBaTVpsVTUbdHFAUdiJKCsvE",
+      "deployed": true,
+      "active": true
+    },
+    {
+      "name": "marginfi",
+      "programId": "36CgQYZFxZQHzyMrn3NJRXR9jsVoYH44WitqGohoBGoi",
+      "entry": "GqfT788o1K6pbj1mzxVjiGdHjzQraqbKgmQ55QPBJQVL",
+      "deployed": true,
+      "active": true
+    },
+    {
+      "name": "jupiter-jlp",
+      "programId": "9fqh4833yoSJoPzpsucHY2SbUafVfHcC48RLQhTTahsB",
+      "entry": "8S81UmYc3P236JU4EUa6kYpwb491txL8sidJrFE8h75k",
+      "deployed": true,
+      "active": true
+    },
+    {
+      "name": "maple",
+      "programId": "Ck9mwpX9kAjycbtN7jhD3s9xdHzUS2dwuV43g3BuBnD",
+      "entry": "a7TWf717ysWKMbFfNAkjxbZTnPSenGpMA5hUTnQgCRV",
+      "deployed": true,
+      "active": true
+    },
+    {
+      "name": "drift-if",
+      "programId": "8MYJzh7Fm1q6QcrXNZNvCetoLkv1tfxjBDbrZXTFVjLs",
+      "entry": "8uixjzJ14DNfv5X3QCDXLFVwT73xdoQ9eN11uxtkmsS7",
+      "deployed": true,
+      "active": true
+    }
+  ],
+  "note": "Protocols are absent on devnet; deposit/withdraw execution is validated on mainnet-fork (tests/fork). This deployment proves the registry/dispatcher/adapter program ids are live and governance-gated."
+}
