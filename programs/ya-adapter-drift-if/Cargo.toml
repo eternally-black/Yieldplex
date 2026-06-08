@@ -1,0 +1,26 @@
+[package]
+name = "ya-adapter-drift-if"
+version = "0.1.0"
+edition = "2021"
+description = "Drift v2 Insurance Fund USDC reference adapter (two-phase request->cooldown->settle). Spec-correct against the real Drift layout/discriminators; live CPI is disabled upstream (see docs) — proven via yarn probe:drift-if + the two-phase lifecycle on ya-cooldown-standin."
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "ya_adapter_drift_if"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
+
+[dependencies]
+anchor-lang = { workspace = true, features = ["init-if-needed"] }
+anchor-spl = { workspace = true }
+ya-interface = { path = "../../crates/ya-interface" }
+ya-registry = { path = "../ya-registry", features = ["cpi"] }
+
+[lints.rust]
+unexpected_cfgs = { level = "allow" }

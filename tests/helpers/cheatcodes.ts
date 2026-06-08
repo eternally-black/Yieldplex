@@ -41,8 +41,8 @@ export async function nowTs(connection: Connection): Promise<number> {
   return t ?? Math.floor(Date.now() / 1000);
 }
 
-/** Advance surfnet time by `seconds` (for cooldown/lifecycle tests). */
+/** Advance surfnet time by `seconds` (for cooldown/lifecycle tests). absoluteTimestamp is in ms. */
 export async function warpForwardSeconds(connection: Connection, seconds: number): Promise<void> {
   const target = (await nowTs(connection)) + seconds;
-  await cheat("surfnet_timeTravel", [{ absoluteTimestamp: target }]);
+  await cheat("surfnet_timeTravel", [{ absoluteTimestamp: target * 1000 }]);
 }

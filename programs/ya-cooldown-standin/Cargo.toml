@@ -1,0 +1,25 @@
+[package]
+name = "ya-cooldown-standin"
+version = "0.1.0"
+edition = "2021"
+description = "Two-phase (cooldown) conformance STAND-IN — NOT a live protocol. Exercises the standard's request->cooldown->settle withdrawal + the dispatcher's two-phase routing, used to prove the Drift IF adapter's two-phase lifecycle (live Drift IF CPI is disabled upstream — see drift-if adapter)."
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "ya_cooldown_standin"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = { workspace = true, features = ["init-if-needed"] }
+ya-interface = { path = "../../crates/ya-interface" }
+ya-registry = { path = "../ya-registry", features = ["cpi"] }
+
+[lints.rust]
+unexpected_cfgs = { level = "allow" }

@@ -11,6 +11,7 @@
     "test": "ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.spec.ts",
     "test:fork": "bash scripts/fork-test.sh",
     "test:rust": "bash scripts/test-rust.sh",
+    "probe:drift-if": "node scripts/probe-drift-if.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "devDependencies": {

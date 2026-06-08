@@ -15,6 +15,8 @@ ya_adapter_kamino = "BwyrWhHa86dCyRghZn9EDK2ZxfhpBH4tr5NVoBJ3hTs5"
 ya_adapter_marginfi = "36CgQYZFxZQHzyMrn3NJRXR9jsVoYH44WitqGohoBGoi"
 ya_adapter_jupiter_jlp = "9fqh4833yoSJoPzpsucHY2SbUafVfHcC48RLQhTTahsB"
 ya_adapter_maple = "Ck9mwpX9kAjycbtN7jhD3s9xdHzUS2dwuV43g3BuBnD"
+ya_adapter_drift_if = "8MYJzh7Fm1q6QcrXNZNvCetoLkv1tfxjBDbrZXTFVjLs"
+ya_cooldown_standin = "7aTuXKiyKwZ1MVrPfMgoAPoh8VKDSBLPAfEBvzkhJCYR"
 
 [provider]
 cluster = "localnet"

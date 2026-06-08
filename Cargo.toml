@@ -8,6 +8,8 @@ members = [
     "programs/ya-adapter-marginfi",
     "programs/ya-adapter-jupiter-jlp",
     "programs/ya-adapter-maple",
+    "programs/ya-adapter-drift-if",
+    "programs/ya-cooldown-standin",
 ]
 resolver = "2"
 
