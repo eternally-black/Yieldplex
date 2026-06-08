@@ -12,5 +12,6 @@
     "lib": ["es2020"],
     "types": ["node", "mocha", "chai"]
   },
-  "include": ["tests/**/*.ts", "ts/**/*.ts", "scripts/**/*.ts"]
+  "//": "scripts/*.ts are standalone dev tooling run via tsx (not part of the typechecked build).",
+  "include": ["tests/**/*.ts", "ts/**/*.ts"]
 }

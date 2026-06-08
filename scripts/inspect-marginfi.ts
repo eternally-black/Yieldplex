@@ -2,7 +2,7 @@
 // Finds the Bank (disc + mint==USDC + group==main), decodes asset_share_value (I80F48) + the
 // liquidity vault + bumps, and verifies the field offsets used by the adapter.
 //
-// Run: node scripts/inspect-marginfi.mjs   (MAINNET_RPC_URL from env or ./.env)
+// Run: npx tsx scripts/inspect-marginfi.ts   (MAINNET_RPC_URL from env or ./.env)
 import { readFileSync } from "node:fs";
 
 function loadRpc() {

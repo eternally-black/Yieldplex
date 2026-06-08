@@ -3,8 +3,8 @@
 // Framework: Anchor 1.0.2
 // Risk Level: 🟢 Low — no real protocol, mock 1:1 shares, no token movement.
 //
-// THIS IS NOT A LIVE PROTOCOL ADAPTER. It is the honest §F stand-in for the Drift Insurance Fund
-// adapter: a real on-chain CPI round-trip into Drift's IF-staking is impossible for ANY submission
+// THIS IS NOT A LIVE PROTOCOL ADAPTER. It is the honest Drift stand-in for the Drift Insurance Fund
+// adapter: a real on-chain CPI round-trip into Drift's IF-staking is impossible for any integration
 // (those instructions are commented out of Drift's deployed #[program] — see ya-adapter-drift-if +
 // docs/adapters/drift-if.md). To still prove that OUR two-phase machinery is correct — the standard
 // request->cooldown->settle withdrawal and the dispatcher's two-phase routing — we run the

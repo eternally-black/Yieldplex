@@ -3,7 +3,7 @@
 // decodes the value-math fields at the offsets derived from the vendored IDL, and computes the
 // collateral exchange rate two ways so we can pick the one that matches the on-chain redemption.
 //
-// Run: node scripts/inspect-kamino.mjs   (MAINNET_RPC_URL from env or ./.env)
+// Run: npx tsx scripts/inspect-kamino.ts   (MAINNET_RPC_URL from env or ./.env)
 import { readFileSync } from "node:fs";
 
 function loadRpc() {

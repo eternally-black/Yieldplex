@@ -64,4 +64,4 @@ robustness as the account list is the largest of the five adapters.
 on Surfpool, plus the EDGE `diff = 0` NAV proof. The doves_ag oracles have a 5s staleness window, so
 the fork fixture refreshes their `publish_time` (i64 @177) via `surfnet_setAccount` before each op.
 Run: `anchor test` or `bash scripts/fork-test.sh tests/adapters/jlp.spec.ts`. Pool ground truth:
-`node scripts/inspect-jlp.mjs` / `node scripts/verify-jup-perps.mjs`.
+`npx tsx scripts/inspect-jlp.ts` / `npx tsx scripts/verify-jup-perps.ts`.

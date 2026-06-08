@@ -49,4 +49,4 @@ validated (owner + discriminator + `mint`/`group`) before any field read.
 `tests/adapters/marginfi.spec.ts` — shared `runConformance` on real cloned MarginFi state + the EDGE
 `diff = 0` proof. Run: `anchor test` or `bash scripts/fork-test.sh tests/adapters/marginfi.spec.ts`.
 Value math is unit-tested off-chain: `bash scripts/test-rust.sh ya-adapter-marginfi`. Bank ground
-truth: `node scripts/inspect-marginfi.mjs`.
+truth: `npx tsx scripts/inspect-marginfi.ts`.

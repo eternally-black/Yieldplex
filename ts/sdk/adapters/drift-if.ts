@@ -1,6 +1,6 @@
 // Drift Insurance Fund — two-phase (request -> cooldown -> settle).
 //
-// HONESTY (Amendment §F/§J): a LIVE Drift IF-staking CPI is impossible for any submission — the
+// HONESTY: a live Drift IF-staking CPI is impossible for any integration today — the
 // *_insurance_fund_stake instructions are commented out of Drift's deployed #[program]
 // (see `yarn probe:drift-if`). The spec-correct two-phase adapter (ya-adapter-drift-if) is built
 // and unit-tested but is NOT fork-runnable. What IS exercised end-to-end is the standard's two-phase

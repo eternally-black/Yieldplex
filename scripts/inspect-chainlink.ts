@@ -1,6 +1,6 @@
 // Nail the Chainlink Solana Transmissions layout for the syrupUSDC/USDC feed so the adapter can read
 // the latest answer robustly (from live_cursor, not a frozen offset). Dumps header fields + locates
-// the latest round's answer. Run: node scripts/inspect-chainlink.mjs
+// the latest round's answer. Run: npx tsx scripts/inspect-chainlink.ts
 import { readFileSync } from "node:fs";
 function loadRpc() {
   if (process.env.MAINNET_RPC_URL) return process.env.MAINNET_RPC_URL;

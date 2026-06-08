@@ -1,4 +1,4 @@
-# Drift v2 Insurance Fund adapter (the two-phase adapter + the honest §F play)
+# Drift v2 Insurance Fund adapter (the two-phase adapter + the honest Drift play)
 
 USDC staking into the Drift Insurance Fund (spot market 0). This is the **two-phase** reference
 adapter: `withdraw` opens a cooldown request, `settle_withdrawal` completes it after the unlock.
@@ -8,7 +8,7 @@ adapter: `withdraw` opens a cooldown request, `settle_withdrawal` completes it a
 
 ## Why this is an honest EDGE, not a live round-trip
 
-**A live Drift IF-staking CPI is impossible for *any* submission today.** Drift's deployed program
+**A live Drift IF-staking CPI is impossible for any integration today.** Drift's deployed program
 has the insurance-fund-stake instructions **commented out of its `#[program]`** —
 `drift-labs/protocol-v2` `programs/drift/src/lib.rs` ~lines **796–880**
 (`initialize_/add_/request_remove_/cancel_request_remove_/remove_insurance_fund_stake`). The handler
@@ -32,8 +32,8 @@ So we do **not** fake a live pass. We ship three things and prove each:
    surfnet time-travel +cooldown → settle (Settled)`. This is **never** presented as a live Drift pass
    (see `tests/fork/RESULTS.md`).
 
-A competing submission marks Drift `describe.skip` and blames the validator version; the source proof
-above shows that's incorrect — it's an upstream `#[program]` export, not tooling.
+The validator/tooling version is not the cause: as shown above, this is an upstream `#[program]`
+export removed at the source — not a tooling limitation.
 
 ## How the (spec-correct) adapter works
 

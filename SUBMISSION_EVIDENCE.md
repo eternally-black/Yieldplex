@@ -30,7 +30,7 @@ Available **now** (M0–M3) without an RPC:
 bash scripts/build.sh                          # anchor build: ya-registry + ya-dispatcher + ya-mock-adapter (+IDLs) — green
 bash scripts/test-rust.sh ya-registry          # 6 LiteSVM tests: lifecycle + auth + two-step governance rotation
 bash scripts/test-rust.sh ya-dispatcher        # 3 LiteSVM e2e: registry->dispatcher->adapter route + returnData view + gating
-node scripts/verify-addresses.mjs              # re-verify all §8 mainnet addresses on-chain (needs MAINNET_RPC_URL)
+npx tsx scripts/verify-addresses.ts              # re-verify all §8 mainnet addresses on-chain (needs MAINNET_RPC_URL)
 ```
 
 ---
@@ -120,7 +120,7 @@ We do **not** label the stand-in run as a live-protocol pass. The distinction is
 bash scripts/build.sh                          # anchor build all programs + IDLs (green)
 bash scripts/test-rust.sh ya-registry          # registry lifecycle + governance auth rejection (6 tests)
 bash scripts/test-rust.sh ya-dispatcher        # router e2e + returnData view + gating (3 tests)
-node scripts/verify-addresses.mjs              # re-verify §8 mainnet addresses (needs MAINNET_RPC_URL)
+npx tsx scripts/verify-addresses.ts              # re-verify §8 mainnet addresses (needs MAINNET_RPC_URL)
 
 # mainnet-fork (M5–M7, now):
 bash scripts/fork-test.sh                       # conformance fork suite (Surfpool) — 59/59 (drift-if last)

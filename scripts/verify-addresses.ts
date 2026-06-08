@@ -2,7 +2,7 @@
 // owner / executable / mint decimals. Resolves the Maple entry path by reading the
 // syrupUSDC mint_authority and the program that owns it. No deps (Node 20 global fetch).
 //
-// Run: node scripts/verify-addresses.mjs   (MAINNET_RPC_URL from env or ./.env)
+// Run: npx tsx scripts/verify-addresses.ts   (MAINNET_RPC_URL from env or ./.env)
 
 import { readFileSync } from "node:fs";
 

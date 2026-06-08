@@ -35,7 +35,7 @@ value (USDC)    = floor( shares * total_supply_sf / collateral.mint_total_supply
 The `_sf` fields are Kamino `U68F60` scaled fractions (value × 2⁶⁰). The `shares * total_supply_sf`
 product exceeds u128, so it runs in a 192-bit `mul_div_u64`. This is **byte-exact** with what
 `redeem_reserve_collateral` pays out — the fork test asserts `current_value == actual redeemed USDC,
-diff = 0` (vs the field, which only checks value ≈ deposit). A competitor shipped Kamino value as
+diff = 0` (vs the field, which only checks value ≈ deposit). A naive implementation reports Kamino value as
 `reserve.available_liquidity()` (a pool aggregate) — wrong; we read the *position's* redeemable value.
 
 ## Accounts

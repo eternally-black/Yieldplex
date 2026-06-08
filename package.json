@@ -5,15 +5,15 @@
   "description": "Reference implementation of a Solana Yield Adapter Standard (dispatcher + registry + 5 adapters + SDK + conformance suite).",
   "license": "MIT",
   "scripts": {
-    "verify-addresses": "node scripts/verify-addresses.mjs",
-    "inspect-idls": "node scripts/inspect-idls.mjs",
+    "verify-addresses": "tsx scripts/verify-addresses.ts",
+    "inspect-idls": "tsx scripts/inspect-idls.ts",
     "build": "bash scripts/build.sh",
     "test": "ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.spec.ts",
     "test:fork": "bash scripts/fork-test.sh",
     "test:rust": "bash scripts/test-rust.sh",
-    "probe:drift-if": "node scripts/probe-drift-if.mjs",
+    "probe:drift-if": "tsx scripts/probe-drift-if.ts",
     "deploy:devnet": "bash scripts/deploy-devnet.sh",
-    "verify:devnet": "ANCHOR_PROVIDER_URL=https://api.devnet.solana.com node scripts/verify-devnet.mjs",
+    "verify:devnet": "ANCHOR_PROVIDER_URL=https://api.devnet.solana.com tsx scripts/verify-devnet.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "devDependencies": {
@@ -24,6 +24,7 @@
     "dotenv": "^16.4.5",
     "mocha": "^10.7.0",
     "ts-mocha": "^10.0.0",
+    "tsx": "^4.22.4",
     "typescript": "^5.4.5"
   },
   "dependencies": {

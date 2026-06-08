@@ -1,6 +1,6 @@
 // M8 verify — confirm the devnet deployment is live: every program account is executable, and the
 // registry holds >= 5 Active adapter entries. Exits non-zero on any failure (CI/gate friendly).
-//   ANCHOR_PROVIDER_URL=https://api.devnet.solana.com node scripts/verify-devnet.mjs
+//   ANCHOR_PROVIDER_URL=https://api.devnet.solana.com npx tsx scripts/verify-devnet.ts
 import { Connection, PublicKey } from "@solana/web3.js";
 
 const URL = process.env.ANCHOR_PROVIDER_URL || "https://api.devnet.solana.com";

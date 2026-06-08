@@ -64,4 +64,4 @@ vault accounts are re-derived as this position's canonical PDAs.
 `tests/adapters/maple.spec.ts` runs the shared `runConformance` suite against real cloned Orca +
 Chainlink state on Surfpool, plus the EDGE `diff = 0` proof (value vs the Chainlink rate, not the
 pool quote). Run: `anchor test` or `bash scripts/fork-test.sh tests/adapters/maple.spec.ts`. Feed
-ground truth: `node scripts/inspect-chainlink.mjs`.
+ground truth: `npx tsx scripts/inspect-chainlink.ts`.

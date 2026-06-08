@@ -4,8 +4,8 @@
 // Risk Level: 🔴 Critical — two-phase (cooldown) IF staking via the per-position vault_authority PDA.
 // Security:  See programs/ya-adapter-drift-if/security-checklist.md
 //
-// Reference adapter #5 — the TWO-PHASE adapter (request -> cooldown -> settle), and the honest §F
-// play. A live IF-staking CPI is IMPOSSIBLE for ANY submission: Drift's deployed program has the
+// Reference adapter #5 — the TWO-PHASE adapter (request -> cooldown -> settle), and the honest Drift
+// play. A live IF-staking CPI is IMPOSSIBLE for any integration: Drift's deployed program has the
 // *_insurance_fund_stake instructions commented out of its #[program] (see docs/adapters/drift-if.md
 // + `yarn probe:drift-if`). So this adapter is SPEC-CORRECT (real Drift accounts/discriminators,
 // two-phase ticket, cooldown read from chain, IF-share value math) — it executes the instant Drift

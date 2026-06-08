@@ -23,7 +23,7 @@ the protocol's **own redemption/NAV math to 0 lamports** — not a "value ≈ de
 | [marginfi](docs/adapters/marginfi.md) | MarginFi v2 | diff = 0 vs on-chain redemption | 9/9 |
 | [jupiter-jlp](docs/adapters/jupiter-jlp.md) | Jupiter Perps JLP | diff = 0 vs pool NAV | 9/9 |
 | [maple](docs/adapters/maple.md) | syrupUSDC via Orca Whirlpool | diff = 0 vs Chainlink rate | 9/9 |
-| [drift-if](docs/adapters/drift-if.md) | Drift v2 Insurance Fund | two-phase lifecycle (live CPI disabled upstream — [honest §F](tests/fork/RESULTS.md)) | 10/10 (stand-in) |
+| [drift-if](docs/adapters/drift-if.md) | Drift v2 Insurance Fund | two-phase lifecycle (live CPI disabled upstream — [honest Drift note](tests/fork/RESULTS.md)) | 10/10 (stand-in) |
 
 **Fork totals: 59/59 conformance + 5/5 SDK e2e.** Full results: [tests/fork/RESULTS.md](tests/fork/RESULTS.md) ·
 real run log: [tests/fork/fork-run.log](tests/fork/fork-run.log) · evidence map: [SUBMISSION_EVIDENCE.md](SUBMISSION_EVIDENCE.md).
@@ -67,8 +67,7 @@ bash scripts/fork-test.sh tests/sdk/e2e.spec.ts     # SDK + dispatcher e2e — 5
 npx ts-mocha -p ./tsconfig.json tests/sdk/decode.spec.ts   # offline decoder — 4 passing (no RPC)
 ```
 
-Toolchain: anchor 1.0.2 / solana 3.1.10 / surfpool 1.3.1 (the pinned `0.31.1/2.2.20` stack is
-[explicitly waived by the sponsor](SUBMISSION_EVIDENCE.md#5-reproducibility--honest-limitations)).
+Toolchain: anchor 1.0.2 / solana 3.1.10 / surfpool 1.3.1.
 
 ## SDK
 

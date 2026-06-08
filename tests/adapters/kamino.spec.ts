@@ -14,7 +14,7 @@ import {
 import { runConformance } from "../conformance/runConformance";
 import { fundUsdc } from "../helpers/cheatcodes";
 
-// Verified on-chain (M0 + scripts/inspect-kamino.mjs).
+// Verified on-chain (M0 + scripts/inspect-kamino.ts).
 const USDC = new PublicKey("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
 const KAMINO = new PublicKey("KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD");
 const MARKET = new PublicKey("7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF");

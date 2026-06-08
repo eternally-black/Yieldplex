@@ -1,5 +1,5 @@
-// Drift Insurance Fund — the honest §F proof.
-// A live Drift IF-staking CPI is impossible for ANY submission (the *_insurance_fund_stake
+// Drift Insurance Fund — the honest Drift proof.
+// A live Drift IF-staking CPI is impossible for any integration (the *_insurance_fund_stake
 // instructions are commented out of Drift's deployed #[program]; see `yarn probe:drift-if` +
 // docs/adapters/drift-if.md). The spec-correct two-phase adapter (ya-adapter-drift-if) is built and
 // unit-tested. Here we prove OUR two-phase machinery — the standard request->cooldown->settle

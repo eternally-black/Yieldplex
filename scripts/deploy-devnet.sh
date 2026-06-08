@@ -68,7 +68,7 @@ for name in "${PROGRAMS[@]}"; do
 done
 
 echo "=== initialize registry + propose/approve the 5 adapters ==="
-ANCHOR_PROVIDER_URL="$URL" ANCHOR_WALLET="$WALLET" node "$HERE/setup-registry-devnet.mjs" || exit 1
+ANCHOR_PROVIDER_URL="$URL" ANCHOR_WALLET="$WALLET" npx tsx "$HERE/setup-registry-devnet.ts" || exit 1
 
 echo "=== verify ==="
-ANCHOR_PROVIDER_URL="$URL" node "$HERE/verify-devnet.mjs"
+ANCHOR_PROVIDER_URL="$URL" npx tsx "$HERE/verify-devnet.ts"

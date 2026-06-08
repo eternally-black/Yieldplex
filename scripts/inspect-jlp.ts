@@ -2,7 +2,7 @@
 // leading String + Vec, so offsets are dynamic — parse sequentially: disc, name, custodies[], aum_usd.
 // value(USDC) = jlp_balance * aum_usd / jlp_mint_supply (NAV). Confirms the aum_usd scale + custodies.
 //
-// Run: node scripts/inspect-jlp.mjs   (MAINNET_RPC_URL from env or ./.env)
+// Run: npx tsx scripts/inspect-jlp.ts   (MAINNET_RPC_URL from env or ./.env)
 import { readFileSync } from "node:fs";
 
 function loadRpc() {

@@ -610,7 +610,7 @@ mod tests {
             shares_to_tokens(7_036_874_417_766_400_000_000, 281_474_976_710_656).unwrap(),
             25_000_000
         );
-        // Live main USDC bank (asset_share_value ~1.225): independently computed in inspect-marginfi.mjs.
+        // Live main USDC bank (asset_share_value ~1.225): independently computed in inspect-marginfi.ts.
         assert_eq!(
             shares_to_tokens(5_743_961_595_447_965_917_543, 344_832_400_067_977).unwrap(),
             24_999_999

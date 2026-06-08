@@ -3,7 +3,7 @@
 // - Identifies the USDC custody (mint == USDC) and prints the 4 accounts add_liquidity2 needs.
 // - Derives perpetuals / transfer_authority / event_authority PDAs and checks them on-chain.
 // - Reads oracle account sizes + (best-effort) publish timestamps.
-// Run: node scripts/verify-jup-perps.mjs
+// Run: npx tsx scripts/verify-jup-perps.ts
 import { readFileSync } from "node:fs";
 import { PublicKey } from "@solana/web3.js";
 import bs58 from "bs58";

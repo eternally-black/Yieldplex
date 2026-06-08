@@ -627,7 +627,7 @@ pub struct WithdrawOp<'info> {
 mod tests {
     use super::*;
 
-    /// Live Kamino USDC reserve snapshot (read via scripts/inspect-kamino.mjs). The expected
+    /// Live Kamino USDC reserve snapshot (read via scripts/inspect-kamino.ts). The expected
     /// values are computed independently in that script, so this pins our on-chain math to chain.
     fn snapshot() -> ReserveView {
         ReserveView {

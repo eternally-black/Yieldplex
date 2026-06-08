@@ -13,7 +13,7 @@ import {
 import { runConformance } from "../conformance/runConformance";
 import { fundUsdc, cheat } from "../helpers/cheatcodes";
 
-// Verified on-chain (M0 + scripts/inspect-marginfi.mjs).
+// Verified on-chain (M0 + scripts/inspect-marginfi.ts).
 const USDC = new PublicKey("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
 const MARGINFI = new PublicKey("MFv2hWf31Z9kbCa1snEPYctwafyhdvnV7FZnsebVacA");
 const GROUP = new PublicKey("4qp6Fx6tnZkY5Wropq9wUYgtFxXKwE6viZxFHg3rdAG8");
