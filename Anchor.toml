@@ -13,6 +13,8 @@ ya_dispatcher = "2aY1hBVBJJmX8uSgB4aqhuS2xeDaGCc3d55KE2Mbvvgs"
 ya_mock_adapter = "kQJWqDnHj7mSugETc3EmFrgdwGRoEVSRuVDGgM9ZXjK"
 ya_adapter_kamino = "BwyrWhHa86dCyRghZn9EDK2ZxfhpBH4tr5NVoBJ3hTs5"
 ya_adapter_marginfi = "36CgQYZFxZQHzyMrn3NJRXR9jsVoYH44WitqGohoBGoi"
+ya_adapter_jupiter_jlp = "9fqh4833yoSJoPzpsucHY2SbUafVfHcC48RLQhTTahsB"
+ya_adapter_maple = "Ck9mwpX9kAjycbtN7jhD3s9xdHzUS2dwuV43g3BuBnD"
 
 [provider]
 cluster = "localnet"

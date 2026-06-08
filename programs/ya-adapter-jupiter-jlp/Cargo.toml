@@ -1,0 +1,26 @@
+[package]
+name = "ya-adapter-jupiter-jlp"
+version = "0.1.0"
+edition = "2021"
+description = "Jupiter Perps JLP USDC reference adapter: add_liquidity2 / remove_liquidity2 via the uniform manual CPI; value = jlp_balance * Pool.aum_usd / JLP supply (NAV)."
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "ya_adapter_jupiter_jlp"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
+
+[dependencies]
+anchor-lang = { workspace = true, features = ["init-if-needed"] }
+anchor-spl = { workspace = true }
+ya-interface = { path = "../../crates/ya-interface" }
+ya-registry = { path = "../ya-registry", features = ["cpi"] }
+
+[lints.rust]
+unexpected_cfgs = { level = "allow" }

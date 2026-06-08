@@ -21,7 +21,6 @@ use anchor_lang::prelude::*;
 use anchor_lang::solana_program::{
     instruction::{AccountMeta, Instruction},
     program::{invoke, invoke_signed},
-    pubkey,
 };
 use anchor_spl::token_interface::{Mint, TokenAccount, TokenInterface};
 use ya_interface::{

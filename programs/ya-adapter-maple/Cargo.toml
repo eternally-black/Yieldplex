@@ -1,0 +1,26 @@
+[package]
+name = "ya-adapter-maple"
+version = "0.1.0"
+edition = "2021"
+description = "Maple syrupUSDC reference adapter: acquire/exit syrupUSDC via one Orca Whirlpool swap (USDC<->syrupUSDC); value = syrupUSDC * Chainlink SYRUPUSDC-USDC exchange rate (fail-closed on stale)."
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "ya_adapter_maple"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
+
+[dependencies]
+anchor-lang = { workspace = true, features = ["init-if-needed"] }
+anchor-spl = { workspace = true }
+ya-interface = { path = "../../crates/ya-interface" }
+ya-registry = { path = "../ya-registry", features = ["cpi"] }
+
+[lints.rust]
+unexpected_cfgs = { level = "allow" }

@@ -4225,7 +4225,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1ebf944e87a7c253233ad6766e082e3cd714b5d03812acc24c318f549614536e"
 
 [[package]]
+name = "ya-adapter-jupiter-jlp"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
+ "anchor-spl",
+ "ya-interface",
+ "ya-registry",
+]
+
+[[package]]
 name = "ya-adapter-kamino"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
+ "anchor-spl",
+ "ya-interface",
+ "ya-registry",
+]
+
+[[package]]
+name = "ya-adapter-maple"
 version = "0.1.0"
 dependencies = [
  "anchor-lang",
