@@ -7,9 +7,10 @@ import { assert } from "chai";
 import * as anchor from "@anchor-lang/core";
 import { AccountMeta, PublicKey, TransactionInstruction } from "@solana/web3.js";
 import {
-  dispatcher, registry, registryPda, entryPda, payer,
+  dispatcher, registry, registryPda, entryPda, payer, connection,
   positionPda, ticketPda, routeAccounts, readReturnedU64,
 } from "../helpers/ctx";
+import { decodePosition } from "../../ts/sdk/decode";
 
 export interface ConformanceConfig {
   label: string;
@@ -81,6 +82,22 @@ export function runConformance(get: () => ConformanceConfig): void {
     const cfg = get();
     const pos: any = await (cfg.adapter.account as any).position.fetch(positionPda(cfg.adapter.programId, owner, cfg.baseMint));
     assert.isTrue(new anchor.BN(pos.shares.toString()).gtn(0), "shares should be > 0 after deposit");
+  });
+
+  it("the single SDK decoder reads this adapter's Position (M6 gate)", async () => {
+    const cfg = get();
+    const positionAddr = positionPda(cfg.adapter.programId, owner, cfg.baseMint);
+    // Raw account bytes -> the ONE SDK decoder (no per-adapter codegen). Must agree with the
+    // adapter's own Anchor-typed deserialization, proving the layout is identical everywhere.
+    const ai = await connection.getAccountInfo(positionAddr);
+    assert.isNotNull(ai, "position account must exist");
+    const decoded = decodePosition(ai!.data);
+    const typed: any = await (cfg.adapter.account as any).position.fetch(positionAddr);
+    assert.equal(decoded.owner.toBase58(), owner.toBase58(), "decoder owner");
+    assert.equal(decoded.adapter.toBase58(), cfg.adapter.programId.toBase58(), "decoder adapter id");
+    assert.equal(decoded.baseMint.toBase58(), cfg.baseMint.toBase58(), "decoder base_mint");
+    assert.equal(decoded.shares.toString(), typed.shares.toString(), "decoder shares == typed shares");
+    assert.equal(decoded.cachedValue.toString(), typed.cachedValue.toString(), "decoder cached_value == typed");
   });
 
   it("impossible min_position_out reverts (SlippageExceeded)", async () => {

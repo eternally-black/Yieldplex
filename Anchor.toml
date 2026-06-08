@@ -23,6 +23,8 @@ cluster = "localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
-test = "npx ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.spec.ts"
+# Conformance fork suite in a deterministic order (drift-if last — its time-travel poisons the clock
+# for time-sensitive oracles). The SDK e2e runs in its own surfnet: `bash scripts/fork-test.sh tests/sdk/e2e.spec.ts`.
+test = "npx ts-mocha -p ./tsconfig.json -t 1000000 tests/mock.spec.ts tests/adapters/kamino.spec.ts tests/adapters/marginfi.spec.ts tests/adapters/jlp.spec.ts tests/adapters/maple.spec.ts tests/sdk/decode.spec.ts tests/adapters/drift-if.spec.ts"
 
 [hooks]

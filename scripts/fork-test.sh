@@ -40,7 +40,12 @@ for so in target/deploy/*.so; do
     || { echo "  DEPLOY FAILED ($name):"; tail -3 /tmp/deploy_$name.log; }
 done
 
-GLOBS="${*:-tests/**/*.spec.ts}"
+# Default = the conformance fork suite in a deterministic order. drift-if.spec runs LAST because its
+# +cooldown time-travel poisons the clock for time-sensitive oracles (maple Chainlink / jlp doves_ag).
+# The SDK e2e (tests/sdk/e2e.spec.ts) is intentionally NOT in the default: it reuses each adapter's
+# position PDA, so it must run in its own surfnet — `bash scripts/fork-test.sh tests/sdk/e2e.spec.ts`.
+DEFAULT_SUITE="tests/mock.spec.ts tests/adapters/kamino.spec.ts tests/adapters/marginfi.spec.ts tests/adapters/jlp.spec.ts tests/adapters/maple.spec.ts tests/sdk/decode.spec.ts tests/adapters/drift-if.spec.ts"
+GLOBS="${*:-$DEFAULT_SUITE}"
 echo "=== ts-mocha $GLOBS ==="
 ANCHOR_PROVIDER_URL="$RPC" ANCHOR_WALLET="$WALLET" MAINNET_RPC_URL="$MAINNET_RPC_URL" \
   npx ts-mocha -p ./tsconfig.json -t 1000000 $GLOBS

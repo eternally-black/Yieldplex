@@ -1,7 +1,6 @@
-# Yield Adapter Standard — mainnet-fork run ()
-Toolchain: anchor 1.0.2 / solana 3.1.10 / surfpool 1.3.1; fork source = Helius mainnet.
+# Mainnet-fork run — 2026-06-08T17:10:22Z — anchor 1.0.2 / solana 3.1.10 / surfpool 1.3.1
+# Conformance fork suite (default order, drift-if last) + SDK e2e (separate surfnet).
 
-===== RUN 1: mock + 4 live adapters (Kamino, MarginFi, JLP, Maple) =====
 starting surfnet (--ci headless, fork + airdrop; explicit deploy below) ...
 waiting for RPC. up
 === deploying programs to surfnet ===
@@ -14,70 +13,93 @@ waiting for RPC. up
   deploy ya_dispatcher -> 2aY1hBVBJJmX8uSgB4aqhuS2xeDaGCc3d55KE2Mbvvgs
   deploy ya_mock_adapter -> kQJWqDnHj7mSugETc3EmFrgdwGRoEVSRuVDGgM9ZXjK
   deploy ya_registry -> 3ehQoDePP3eULnSKxgHc6DvLAwEQNeVHvJYzWPXoQyUD
-=== ts-mocha tests/mock.spec.ts tests/adapters/kamino.spec.ts tests/adapters/marginfi.spec.ts tests/adapters/jlp.spec.ts tests/adapters/maple.spec.ts ===
+=== ts-mocha tests/mock.spec.ts tests/adapters/kamino.spec.ts tests/adapters/marginfi.spec.ts tests/adapters/jlp.spec.ts tests/adapters/maple.spec.ts tests/sdk/decode.spec.ts tests/adapters/drift-if.spec.ts ===
 
 
   ya-mock-adapter — conformance suite (surfnet)
-    ✔ initialize_position is idempotent (763ms)
-    ✔ deposit then current_value ≈ amount (within tolerance) (645ms)
+    ✔ initialize_position is idempotent (797ms)
+    ✔ deposit then current_value ≈ amount (within tolerance) (683ms)
     ✔ position reflects nonzero shares
-    ✔ impossible min_position_out reverts (SlippageExceeded) (103ms)
-    ✔ withdraw settles instantly / opens a pending ticket (two-phase) (101ms)
-    ✔ registry gating: paused adapter routing reverts (AdapterNotActive) (781ms)
-    ✔ base-mint mismatch routing reverts (BaseMintMismatch) (94ms)
+    ✔ the single SDK decoder reads this adapter's Position (M6 gate)
+    ✔ impossible min_position_out reverts (SlippageExceeded) (115ms)
+    ✔ withdraw settles instantly / opens a pending ticket (two-phase) (385ms)
+    ✔ registry gating: paused adapter routing reverts (AdapterNotActive) (805ms)
+    ✔ base-mint mismatch routing reverts (BaseMintMismatch) (108ms)
 
   ya-adapter-kamino — conformance + value accuracy (surfnet, real Kamino state)
     ✔ lending_market_authority seed [b"lma", market] derives to the on-chain authority
-    ✔ initialize_position is idempotent (556ms)
-    ✔ deposit then current_value ≈ amount (within tolerance) (768ms)
+    ✔ initialize_position is idempotent (569ms)
+    ✔ deposit then current_value ≈ amount (within tolerance) (889ms)
     ✔ position reflects nonzero shares
-    ✔ impossible min_position_out reverts (SlippageExceeded) (92ms)
-    ✔ withdraw settles instantly / opens a pending ticket (two-phase) (363ms)
-    ✔ registry gating: paused adapter routing reverts (AdapterNotActive) (802ms)
-    ✔ base-mint mismatch routing reverts (BaseMintMismatch) (120ms)
+    ✔ the single SDK decoder reads this adapter's Position (M6 gate)
+    ✔ impossible min_position_out reverts (SlippageExceeded) (117ms)
+    ✔ withdraw settles instantly / opens a pending ticket (two-phase) (177ms)
+    ✔ registry gating: paused adapter routing reverts (AdapterNotActive) (790ms)
+    ✔ base-mint mismatch routing reverts (BaseMintMismatch) (104ms)
     [kamino] current_value=19999999  redeemed=19999999  diff=0
-    ✔ EDGE: current_value() == actual redeemed USDC, diff = 0 lamports (651ms)
+    ✔ EDGE: current_value() == actual redeemed USDC, diff = 0 lamports (719ms)
 
   ya-adapter-marginfi — conformance + value accuracy (surfnet, real MarginFi state)
-    ✔ initialize_position is idempotent (750ms)
-    ✔ deposit then current_value ≈ amount (within tolerance) (667ms)
+    ✔ initialize_position is idempotent (778ms)
+    ✔ deposit then current_value ≈ amount (within tolerance) (580ms)
     ✔ position reflects nonzero shares
-    ✔ impossible min_position_out reverts (SlippageExceeded) (103ms)
-    ✔ withdraw settles instantly / opens a pending ticket (two-phase) (110ms)
-    ✔ registry gating: paused adapter routing reverts (AdapterNotActive) (744ms)
-    ✔ base-mint mismatch routing reverts (BaseMintMismatch) (99ms)
+    ✔ the single SDK decoder reads this adapter's Position (M6 gate)
+    ✔ impossible min_position_out reverts (SlippageExceeded) (112ms)
+    ✔ withdraw settles instantly / opens a pending ticket (two-phase) (148ms)
+    ✔ registry gating: paused adapter routing reverts (AdapterNotActive) (749ms)
+    ✔ base-mint mismatch routing reverts (BaseMintMismatch) (122ms)
     [marginfi] current_value=19999999  redeemed=19999999  diff=0
-    ✔ EDGE: current_value() == actual redeemed USDC, diff = 0 lamports (684ms)
+    ✔ EDGE: current_value() == actual redeemed USDC, diff = 0 lamports (697ms)
 
   ya-adapter-jupiter-jlp — conformance + NAV accuracy (surfnet, real Jupiter state)
-    ✔ initialize_position is idempotent (797ms)
-    ✔ deposit then current_value ≈ amount (within tolerance) (1799ms)
+    ✔ initialize_position is idempotent (765ms)
+    ✔ deposit then current_value ≈ amount (within tolerance) (1644ms)
     ✔ position reflects nonzero shares
-    ✔ impossible min_position_out reverts (SlippageExceeded) (116ms)
-    ✔ withdraw settles instantly / opens a pending ticket (two-phase) (121ms)
-    ✔ registry gating: paused adapter routing reverts (AdapterNotActive) (765ms)
-    ✔ base-mint mismatch routing reverts (BaseMintMismatch) (118ms)
-    [jlp] jlp=5958434 aum=740162565675933 supply=220941236624035 current_value=19961008 expected=19961008
-    ✔ EDGE: current_value() == pool NAV (jlp × aum_usd / supply), diff = 0 (517ms)
+    ✔ the single SDK decoder reads this adapter's Position (M6 gate)
+    ✔ impossible min_position_out reverts (SlippageExceeded) (140ms)
+    ✔ withdraw settles instantly / opens a pending ticket (two-phase) (207ms)
+    ✔ registry gating: paused adapter routing reverts (AdapterNotActive) (840ms)
+    ✔ base-mint mismatch routing reverts (BaseMintMismatch) (146ms)
+    [jlp] jlp=5971377 aum=738443111076841 supply=220936251530452 current_value=19958346 expected=19958346
+    ✔ EDGE: current_value() == pool NAV (jlp × aum_usd / supply), diff = 0 (500ms)
 
   ya-adapter-maple — conformance + value accuracy (surfnet, real Orca/Chainlink state)
-    ✔ initialize_position is idempotent (757ms)
-    ✔ deposit then current_value ≈ amount (within tolerance) (633ms)
+    ✔ initialize_position is idempotent (812ms)
+    ✔ deposit then current_value ≈ amount (within tolerance) (601ms)
     ✔ position reflects nonzero shares
-    ✔ impossible min_position_out reverts (SlippageExceeded) (100ms)
-    ✔ withdraw settles instantly / opens a pending ticket (two-phase) (102ms)
-    ✔ registry gating: paused adapter routing reverts (AdapterNotActive) (804ms)
-    ✔ base-mint mismatch routing reverts (BaseMintMismatch) (94ms)
-    [maple] syrup=17124132 rate=1167870(6dp) current_value=19998760 expected=19998760
-    ✔ EDGE: current_value() == syrupUSDC balance × Chainlink rate (diff = 0) (538ms)
+    ✔ the single SDK decoder reads this adapter's Position (M6 gate)
+    ✔ impossible min_position_out reverts (SlippageExceeded) (106ms)
+    ✔ withdraw settles instantly / opens a pending ticket (two-phase) (128ms)
+    ✔ registry gating: paused adapter routing reverts (AdapterNotActive) (761ms)
+    ✔ base-mint mismatch routing reverts (BaseMintMismatch) (113ms)
+    [maple] syrup=17124093 rate=1167890(6dp) current_value=19999056 expected=19999056
+    ✔ EDGE: current_value() == syrupUSDC balance × Chainlink rate (diff = 0) (524ms)
+
+  SDK single decoder — byte-exact layout (offline)
+    ✔ decodes a Position
+    ✔ decodes a WithdrawalTicket and maps the status enum
+    ✔ decodes an AdapterEntry (trimmed name + status)
+    ✔ rejects a wrong discriminator
+
+  Drift IF two-phase lifecycle — via the cooldown STAND-IN (surfnet); NOT a live Drift pass
+    ✔ initialize_position is idempotent (803ms)
+    ✔ deposit then current_value ≈ amount (within tolerance) (629ms)
+    ✔ position reflects nonzero shares
+    ✔ the single SDK decoder reads this adapter's Position (M6 gate)
+    ✔ impossible min_position_out reverts (SlippageExceeded) (104ms)
+    ✔ withdraw settles instantly / opens a pending ticket (two-phase) (423ms)
+    ✔ registry gating: paused adapter routing reverts (AdapterNotActive) (838ms)
+    ✔ base-mint mismatch routing reverts (BaseMintMismatch) (101ms)
+    ✔ settle before unlock reverts (WithdrawalLocked) (108ms)
+    [drift-if/standin] two-phase complete: requested 25000000 shares, Pending -> time-travel +1123200s -> Settled
+    ✔ settle after cooldown completes the two-phase withdrawal (Pending -> Settled) (179ms)
 
 
-  40 passing (21s)
+  59 passing (26s)
 
 FORKTEST_EXIT=0
-RUN1_EXIT=0
 
-===== RUN 2: Drift IF two-phase lifecycle via cooldown stand-in (isolated: +13d time-travel) =====
+=================== SDK e2e (own surfnet, no position collisions) ===================
 starting surfnet (--ci headless, fork + airdrop; explicit deploy below) ...
 waiting for RPC. up
 === deploying programs to surfnet ===
@@ -90,23 +112,22 @@ waiting for RPC. up
   deploy ya_dispatcher -> 2aY1hBVBJJmX8uSgB4aqhuS2xeDaGCc3d55KE2Mbvvgs
   deploy ya_mock_adapter -> kQJWqDnHj7mSugETc3EmFrgdwGRoEVSRuVDGgM9ZXjK
   deploy ya_registry -> 3ehQoDePP3eULnSKxgHc6DvLAwEQNeVHvJYzWPXoQyUD
-=== ts-mocha tests/adapters/drift-if.spec.ts ===
+=== ts-mocha tests/sdk/e2e.spec.ts ===
 
 
-  Drift IF two-phase lifecycle — via the cooldown STAND-IN (surfnet); NOT a live Drift pass
-    ✔ initialize_position is idempotent (818ms)
-    ✔ deposit then current_value ≈ amount (within tolerance) (566ms)
-    ✔ position reflects nonzero shares
-    ✔ impossible min_position_out reverts (SlippageExceeded) (95ms)
-    ✔ withdraw settles instantly / opens a pending ticket (two-phase) (150ms)
-    ✔ registry gating: paused adapter routing reverts (AdapterNotActive) (786ms)
-    ✔ base-mint mismatch routing reverts (BaseMintMismatch) (93ms)
-    ✔ settle before unlock reverts (WithdrawalLocked) (93ms)
-    [drift-if/standin] two-phase complete: requested 25000000 shares, Pending -> time-travel +1123200s -> Settled
-    ✔ settle after cooldown completes the two-phase withdrawal (Pending -> Settled) (207ms)
+  SDK e2e — every live adapter through YieldAdapterClient + the real dispatcher (surfnet)
+    [sdk-e2e/kamino] ok: currentValue=24999999, shares=21075238
+    ✔ kamino: init -> deposit -> currentValue -> decode -> withdraw (instant) (2496ms)
+    [sdk-e2e/marginfi] ok: currentValue=24999999, shares=25000000
+    ✔ marginfi: init -> deposit -> currentValue -> decode -> withdraw (instant) (1998ms)
+    [sdk-e2e/maple] ok: currentValue=24998820, shares=21405116
+    ✔ maple: init -> deposit -> currentValue -> decode -> withdraw (instant) (2037ms)
+    [sdk-e2e/jlp] ok: currentValue=24951261, shares=7451367
+    ✔ jlp: init -> deposit -> currentValue -> decode -> withdraw (instant) (4402ms)
+    [sdk-e2e/drift-standin] two-phase ok: Pending -> +1123200s -> Settled
+    ✔ drift-standin: init -> deposit -> withdraw(Pending) -> time-travel -> settle (two-phase) (2371ms)
 
 
-  9 passing (4s)
+  5 passing (14s)
 
 FORKTEST_EXIT=0
-RUN2_EXIT=0
