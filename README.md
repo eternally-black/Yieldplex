@@ -1,6 +1,6 @@
 # Solana Yield Adapter Standard
 
-[![ci](https://github.com/eternally-black/claude-lookup/actions/workflows/ci.yml/badge.svg)](https://github.com/eternally-black/claude-lookup/actions/workflows/ci.yml)
+[![ci](https://github.com/eternally-black/Solana-top-yield-adapter-standard/actions/workflows/ci.yml/badge.svg)](https://github.com/eternally-black/Solana-top-yield-adapter-standard/actions/workflows/ci.yml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 A uniform on-chain standard for integrating any Solana yield source behind one interface: a
@@ -58,7 +58,7 @@ real run log: [tests/fork/fork-run.log](tests/fork/fork-run.log) · evidence map
 ## Quickstart
 
 ```bash
-git clone https://github.com/eternally-black/claude-lookup && cd claude-lookup
+git clone https://github.com/eternally-black/Solana-top-yield-adapter-standard && cd Solana-top-yield-adapter-standard
 npm install
 export MAINNET_RPC_URL=<your-mainnet-rpc>          # the fork clones live protocol state
 
