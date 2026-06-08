@@ -38,17 +38,15 @@ real run log: [tests/fork/fork-run.log](tests/fork/fork-run.log) · evidence map
 ## Architecture
 
 ```
-                       ┌────────────────┐  governance-gated approve/pause/deprecate
-            user ─────▶│  ya-dispatcher │◀──────────────  ya-registry (AdapterEntry per program)
-         (signs tx)    │   (router,     │
-                       │ non-custodial) │  one manual CPI, identical standardized call
-                       └───────┬────────┘
-            standard 9-account prefix + opaque remaining_accounts
-                               ▼
-                   ┌──────────────────────┐   per-position vault_authority PDA = sole protocol actor
-                   │  ya-adapter-<proto>  │── invoke_signed ─▶  Kamino / MarginFi / Jupiter / Orca / Drift
-                   │  Position · Ticket   │
-                   └──────────────────────┘
+   caller (vault / router / agent)
+        ▼
+   ya-dispatcher
+        ▼
+   ya-adapter-X
+        ▼
+   Kamino / MarginFi / Jupiter / Orca / Drift
+        ▼
+   Position PDA
 ```
 
 - **`current_value`** is a real view (program return-data), re-reported by the dispatcher.
@@ -58,16 +56,16 @@ real run log: [tests/fork/fork-run.log](tests/fork/fork-run.log) · evidence map
 ## Quickstart
 
 ```bash
-git clone https://github.com/eternally-black/Solana-top-yield-adapter-standard && cd Solana-top-yield-adapter-standard
-npm install
-export MAINNET_RPC_URL=<your-mainnet-rpc>          # the fork clones live protocol state
-
-bash scripts/fork-test.sh                           # conformance suite — 59 passing
-bash scripts/fork-test.sh tests/sdk/e2e.spec.ts     # SDK + dispatcher e2e — 5 passing
-npx ts-mocha -p ./tsconfig.json tests/sdk/decode.spec.ts   # offline decoder — 4 passing (no RPC)
+git clone https://github.com/eternally-black/Solana-top-yield-adapter-standard && cd Solana-top-yield-adapter-standard && MAINNET_RPC_URL=<your-rpc> npm run check   # -> 59 passing on mainnet-fork
 ```
 
 Toolchain: anchor 1.0.2 / solana 3.1.10 / surfpool 1.3.1.
+
+```bash
+# also:
+bash scripts/fork-test.sh tests/sdk/e2e.spec.ts            # SDK + dispatcher e2e, 5 passing
+npx ts-mocha -p ./tsconfig.json tests/sdk/decode.spec.ts   # offline decoder, 4 passing (no RPC)
+```
 
 ## SDK
 

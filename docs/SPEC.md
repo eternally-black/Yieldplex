@@ -2,6 +2,16 @@
 
 One calling convention for depositing into, withdrawing from, and pricing any yield source on Solana. A non-custodial dispatcher routes three operations (`deposit`, `withdraw`, `current_value`) to small adapter programs, each of which translates the standard call into one venue's CPI. A governance-gated registry controls which adapters are live. A new venue is a new adapter plus a registry entry; the dispatcher and registry do not change.
 
+## Reference implementation
+
+Five adapters, green on a Surfpool mainnet-fork against real cloned protocol state.
+
+```bash
+git clone https://github.com/eternally-black/Solana-top-yield-adapter-standard && cd Solana-top-yield-adapter-standard && MAINNET_RPC_URL=<your-rpc> npm run check   # -> 59 passing on mainnet-fork
+```
+
+Build your own adapter: [BUILD_YOUR_OWN_ADAPTER.md](BUILD_YOUR_OWN_ADAPTER.md).
+
 ## Components
 
 - **`ya-interface`** — a Rust crate (not a program) compiled into every adapter: the account layouts (`Position`, `WithdrawalTicket`), the manual-CPI primitive (`CpiCall`), the return-data view helpers, shared seeds, errors, and events. One crate, so every position has the same layout and one decoder reads them all.
@@ -11,13 +21,12 @@ One calling convention for depositing into, withdrawing from, and pricing any yi
 
 ```
    caller (vault / router / agent)
-        │  deposit | withdraw | settle | current_value
         ▼
-   ya-dispatcher ──reads──► ya-registry   (Active? base mint matches?)
-        │  same call, forwarded + opaque tail
+   ya-dispatcher
         ▼
-   ya-adapter-X ──one CPI──► Kamino / MarginFi / Jupiter / Orca / Drift
-        │
+   ya-adapter-X
+        ▼
+   Kamino / MarginFi / Jupiter / Orca / Drift
         ▼
    Position PDA
 ```

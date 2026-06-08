@@ -5,6 +5,7 @@
   "description": "Reference implementation of a Solana Yield Adapter Standard (dispatcher + registry + 5 adapters + SDK + conformance suite).",
   "license": "MIT",
   "scripts": {
+    "check": "npm install && bash scripts/fork-test.sh",
     "verify-addresses": "tsx scripts/verify-addresses.ts",
     "inspect-idls": "tsx scripts/inspect-idls.ts",
     "build": "bash scripts/build.sh",
