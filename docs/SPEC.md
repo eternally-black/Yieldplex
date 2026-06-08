@@ -7,7 +7,8 @@ One calling convention for depositing into, withdrawing from, and pricing any yi
 Five adapters, green on a Surfpool mainnet-fork against real cloned protocol state.
 
 ```bash
-git clone https://github.com/eternally-black/Yieldplex && cd Yieldplex && MAINNET_RPC_URL=<your-rpc> npm run check   # -> 59 passing on mainnet-fork
+git clone https://github.com/eternally-black/Yieldplex && cd Yieldplex
+MAINNET_RPC_URL=<your-rpc> npm run check   # -> 59 passing on mainnet-fork
 ```
 
 Build your own adapter: [BUILD_YOUR_OWN_ADAPTER.md](BUILD_YOUR_OWN_ADAPTER.md).

@@ -6,7 +6,8 @@
 ## Quickstart
 
 ```bash
-git clone https://github.com/eternally-black/Yieldplex && cd Yieldplex && MAINNET_RPC_URL=<your-rpc> npm run check   # -> 59 passing on mainnet-fork
+git clone https://github.com/eternally-black/Yieldplex && cd Yieldplex
+MAINNET_RPC_URL=<your-rpc> npm run check   # -> 59 passing on mainnet-fork
 ```
 
 Toolchain: anchor 1.0.2 / solana 3.1.10 / surfpool 1.3.1.
