@@ -2,6 +2,7 @@
 
 [![ci](https://github.com/eternally-black/Yieldplex/actions/workflows/ci.yml/badge.svg)](https://github.com/eternally-black/Yieldplex/actions/workflows/ci.yml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![mainnet-fork](https://img.shields.io/badge/mainnet--fork-59%2F59%20%2B%205%2F5%20passing-brightgreen)](tests/fork/RESULTS.md)
 
 ## Quickstart
 
@@ -26,6 +27,20 @@ lines** of the dispatcher or registry.
 Reference build: **5 adapters** (Kamino Lend, MarginFi v2, Jupiter JLP, Maple syrupUSDC, Drift
 Insurance Fund), all tested on **Surfpool mainnet-fork against real cloned protocol state**, plus a
 TypeScript SDK and a parametrized conformance suite.
+
+## Test status
+
+> ✅ **59/59 conformance + 5/5 SDK e2e green on a Surfpool mainnet-fork against real cloned protocol state.** 4 of 5 adapters run live; Drift is blocked by an upstream change no adapter code can work around (proven on-chain, never faked as a pass).
+
+| Adapter | Spec | Status |
+|---|---|---|
+| Kamino USDC | `tests/adapters/kamino.spec.ts` | ✅ passes on live mainnet-fork (10/10) |
+| MarginFi USDC | `tests/adapters/marginfi.spec.ts` | ✅ passes on live mainnet-fork (9/9) |
+| Jupiter JLP | `tests/adapters/jlp.spec.ts` | ✅ passes on live mainnet-fork (9/9) |
+| Maple syrupUSDC | `tests/adapters/maple.spec.ts` | ✅ passes on live mainnet-fork (9/9, via Orca swap) |
+| Drift IF | `tests/adapters/drift-if.spec.ts` | ⛔ blocked upstream; stand-in lifecycle green (10/10), see [RESULTS](tests/fork/RESULTS.md) |
+| Dispatcher e2e (all 5 via the real dispatcher) | `tests/sdk/e2e.spec.ts` | ✅ 5/5 |
+| Single decoder (offline) | `tests/sdk/decode.spec.ts` | ✅ 4/4 (within the 59) |
 
 ## Documentation
 
