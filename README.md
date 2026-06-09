@@ -19,6 +19,39 @@ bash scripts/fork-test.sh tests/sdk/e2e.spec.ts            # SDK + dispatcher e2
 npx ts-mocha -p ./tsconfig.json tests/sdk/decode.spec.ts   # offline decoder, 4 passing (no RPC)
 ```
 
+<details>
+<summary><b>🤖 Install the agent skill</b> (Claude Code · Codex · Cursor · Antigravity)</summary>
+
+<br>
+
+The [build-yield-adapter](skills/build-yield-adapter/SKILL.md) skill turns a coding agent into one that scaffolds and ships a conforming adapter in one pass. Pick your tool:
+
+<details>
+<summary><b>Claude Code</b></summary>
+
+Native skill. Copy it into your skills directory:
+
+```bash
+cp -r skills/build-yield-adapter ~/.claude/skills/   # personal; or .claude/skills/ to ship it per-repo
+```
+
+Auto-loaded; then ask Claude to build a yield adapter for your venue.
+</details>
+
+<details>
+<summary><b>Codex · Cursor · Antigravity</b></summary>
+
+All three read `AGENTS.md` (the cross-tool standard). Append the skill:
+
+```bash
+cat skills/build-yield-adapter/SKILL.md >> AGENTS.md
+```
+
+Cursor can instead load it as a rule: `cp skills/build-yield-adapter/SKILL.md .cursor/rules/build-yield-adapter.mdc`.
+</details>
+
+</details>
+
 A uniform on-chain standard for integrating Solana yield sources behind one interface: a
 **registry-gated dispatcher** routes a single standardized flow — `deposit → current_value →
 withdraw` — into pluggable **adapters**, each wrapping one protocol. Adding a protocol touches **zero
