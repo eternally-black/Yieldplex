@@ -11,7 +11,7 @@ git clone https://github.com/eternally-black/Yieldplex && cd Yieldplex
 MAINNET_RPC_URL=<your-rpc> npm run check   # -> 59 passing on mainnet-fork
 ```
 
-Build your own adapter: [BUILD_YOUR_OWN_ADAPTER.md](BUILD_YOUR_OWN_ADAPTER.md).
+Build your own adapter: [BUILD_YOUR_OWN_ADAPTER.md](BUILD_YOUR_OWN_ADAPTER.md) · Agent skill: [SKILL.md](../skills/build-yield-adapter/SKILL.md).
 
 ## Components
 
